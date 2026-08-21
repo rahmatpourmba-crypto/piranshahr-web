@@ -9,8 +9,6 @@ export default function PayIrCallback() {
   useEffect(() => {
     const st = searchParams.get('status')
     const id = searchParams.get('id')
-    const mobile = searchParams.get('mobile')
-
     if (st === 'ok' && id) {
       setStatus('success')
       setMessage(`پرداخت با شماره پیگیر ${id} تأیید شد.`)
@@ -37,7 +35,7 @@ export default function PayIrCallback() {
           <p className="text-[13px] text-gray-400 mb-6">{message}</p>
         </>
       )}
-      <Link to="/" className="bg-gray-900 text-white px-5 py-2.5 rounded-xl text-[13px] font-semibold hover:bg-gray-800 transition-colors">
+      <Link to="/" className="btn-primary px-5 py-2.5 text-[13px] inline-block">
         بازگشت به خانه
       </Link>
     </div>

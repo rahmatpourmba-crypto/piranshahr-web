@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Store, Home as HomeIcon, Car, Wrench, UtensilsCrossed, ArrowLeftRight, Gift, Briefcase, Search, CalendarClock } from 'lucide-react'
 import Hero from '../components/Hero'
+import LiveBanner from '../components/LiveBanner'
 import CategoryCard from '../components/CategoryCard'
 import AdCard from '../components/AdCard'
 import PaymentModal from '../components/PaymentModal'
@@ -27,6 +28,7 @@ export default function Home() {
   return (
     <div>
       <Hero />
+      <LiveBanner />
       <div className="container py-16 space-y-20">
         <section>
           <h2 className="font-bold text-[18px] text-gray-900 mb-6">دسته‌بندی‌ها</h2>
@@ -41,9 +43,9 @@ export default function Home() {
         <section>
           <div className="flex items-center justify-between mb-6">
             <h2 className="font-bold text-[18px] text-gray-900">جدیدترین آگهی‌ها</h2>
-            <a href="/piranshahr-web/ads" className="text-[13px] text-gray-400 hover:text-gray-900 transition-colors">مشاهده همه</a>
+            <a href="/piranshahr-web/ads" className="text-[13px] text-[#A13D4C] hover:text-[#8B2635] font-medium transition-colors">مشاهده همه</a>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {popularAds.map(ad => <AdCard key={ad.id} ad={ad} onReveal={setSelectedAd} />)}
           </div>
         </section>

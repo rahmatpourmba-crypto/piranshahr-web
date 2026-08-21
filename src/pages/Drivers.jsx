@@ -17,23 +17,23 @@ export default function Drivers() {
     <div className="container py-8">
       <div className="flex items-center justify-between mb-6">
         <h1 className="font-bold text-[20px] text-gray-900">رانندگان</h1>
-        <button onClick={() => setShowReg(!showReg)} className="bg-gray-900 text-white px-4 py-2 rounded-xl text-[13px] font-semibold hover:bg-gray-800 transition-colors">+ ثبت‌نام</button>
+        <button onClick={() => setShowReg(!showReg)} className="btn-primary px-4 py-2 text-[13px]">+ ثبت‌نام</button>
       </div>
       {showReg && <div className="mb-6"><RegisterForm type="driver" /></div>}
       <div className="flex gap-2 mb-6">
         {filters.map(f => (
           <button key={f.value} onClick={() => setFilter(f.value)}
-            className={`px-3 py-1.5 rounded-lg text-[12px] font-medium transition-colors ${
-              filter === f.value ? 'bg-gray-900 text-white' : 'bg-white text-gray-500 border border-gray-200 hover:border-gray-300'
+            className={`px-3 py-1.5 rounded-full text-[12px] font-medium transition-colors ${
+              filter === f.value ? 'bg-[#A13D4C] text-white' : 'bg-white text-gray-500 border border-gray-200 hover:border-gray-300'
             }`}>{f.label}</button>
         ))}
       </div>
       {filtered.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {filtered.map(d => <DriverCard key={d.id} driver={d} onReveal={driver => setSelectedDriver({ title: driver.name, phone: driver.phone, city: 'پیرانشهر' })} />)}
         </div>
       ) : (
-        <div className="text-center py-24"><Car size={32} className="text-gray-300 mx-auto mb-3" /><p className="text-gray-400 text-[14px]">راننده‌ای یافت نشد</p></div>
+        <div className="text-center py-24"><Car size={32} className="text-gray-200 mx-auto mb-3" /><p className="text-gray-400 text-[14px]">راننده‌ای یافت نشد</p></div>
       )}
       <PaymentModal ad={selectedDriver} isOpen={Boolean(selectedDriver)} onClose={() => setSelectedDriver(null)} />
     </div>

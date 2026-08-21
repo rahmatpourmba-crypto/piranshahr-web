@@ -15,26 +15,26 @@ export default function RegisterForm({ type }) {
   const toggleRoute = (a) => setForm((p) => ({ ...p, routes: p.routes.includes(a) ? p.routes.filter((r) => r !== a) : [...p.routes, a] }))
 
   if (submitted) return (
-    <div className="card p-8 text-center">
-      <div className="text-4xl mb-3">✅</div>
-      <h3 className="font-bold text-sm text-emerald-600 mb-1">ثبت‌نام شما ثبت شد!</h3>
-      <p className="text-xs text-gray-400">به‌زودی تماس گرفته میشود.</p>
+    <div className="bg-white rounded-2xl p-8 text-center border border-gray-100">
+      <div className="text-3xl mb-3">✓</div>
+      <h3 className="font-bold text-[14px] text-[#A13D4C] mb-1">ثبت‌نام شما ثبت شد!</h3>
+      <p className="text-[12px] text-gray-400">به‌زودی تماس گرفته میشود.</p>
     </div>
   )
 
   return (
-    <div className="card p-5">
+    <div className="bg-white rounded-2xl p-5 border border-gray-100">
       <div className="flex items-center gap-1 mb-4">
         {steps.map((_, i) => (
           <div key={i} className="flex items-center flex-1">
-            <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 transition-all ${
-              i < step ? 'bg-emerald-500 text-white' : i === step ? 'bg-blue-500 text-white shadow-md shadow-blue-200' : 'bg-gray-100 text-gray-400'
+            <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-bold shrink-0 transition-all ${
+              i < step ? 'bg-[#A13D4C] text-white' : i === step ? 'bg-[#A13D4C] text-white' : 'bg-gray-100 text-gray-400'
             }`}>{i < step ? '✓' : i + 1}</div>
-            {i < steps.length - 1 && <div className={`flex-1 h-0.5 mx-1 ${i < step ? 'bg-emerald-500' : 'bg-gray-200'}`} />}
+            {i < steps.length - 1 && <div className={`flex-1 h-px mx-1 ${i < step ? 'bg-[#A13D4C]' : 'bg-gray-200'}`} />}
           </div>
         ))}
       </div>
-      <p className="text-[10px] text-gray-400 mb-2 font-medium">{step + 1} از {steps.length} · {steps[step]}</p>
+      <p className="text-[10px] text-gray-400 mb-3 font-medium">{step + 1} از {steps.length} · {steps[step]}</p>
 
       {step === 0 && (
         <div className="space-y-2">
@@ -71,15 +71,15 @@ export default function RegisterForm({ type }) {
         <div className="grid grid-cols-2 gap-1.5">
           {areas.map((a) => (
             <button key={a} type="button" onClick={() => toggleRoute(a)}
-              className={`rounded-lg py-2 px-2 text-xs font-semibold border transition-all ${
-                form.routes.includes(a) ? 'bg-blue-50 text-blue-600 border-blue-200' : 'bg-gray-50 text-gray-500 border-gray-200 hover:border-gray-300'
+              className={`rounded-xl py-2 px-2 text-[11px] font-semibold border transition-all ${
+                form.routes.includes(a) ? 'bg-[#FDF2F3] text-[#A13D4C] border-[#F5E6E8]' : 'bg-gray-50 text-gray-500 border-gray-200 hover:border-gray-300'
               }`}>{form.routes.includes(a) ? '✓ ' : ''}{a}</button>
           ))}
         </div>
       )}
 
       {step === 3 && (
-        <div className="bg-gray-50 rounded-xl p-4 text-xs space-y-1.5 border border-gray-100">
+        <div className="bg-gray-50 rounded-xl p-4 text-[12px] space-y-1.5 border border-gray-100">
           <div className="flex justify-between"><span className="text-gray-400">نام:</span><span className="font-bold text-gray-700">{form.name}</span></div>
           <div className="flex justify-between"><span className="text-gray-400">تلفن:</span><span className="font-bold text-gray-700" dir="ltr">{form.phone}</span></div>
           <div className="flex justify-between"><span className="text-gray-400">مسیرها:</span><span className="font-bold text-gray-700">{form.routes.join('، ')}</span></div>
@@ -87,11 +87,11 @@ export default function RegisterForm({ type }) {
       )}
 
       <div className="flex justify-between mt-5">
-        {step > 0 ? <button onClick={() => setStep(step - 1)} className="flex items-center gap-1 px-3 py-1.5 text-xs text-gray-400 hover:text-gray-700 rounded-lg hover:bg-gray-50"><ChevronRight size={14} /> قبلی</button> : <div />}
+        {step > 0 ? <button onClick={() => setStep(step - 1)} className="flex items-center gap-1 px-3 py-1.5 text-[12px] text-gray-400 hover:text-gray-700 rounded-lg hover:bg-gray-50"><ChevronRight size={14} /> قبلی</button> : <div />}
         {step < steps.length - 1 ? (
-          <button onClick={() => setStep(step + 1)} className="btn-primary text-xs px-4 py-2 flex items-center gap-1">بعدی <ChevronLeft size={14} /></button>
+          <button onClick={() => setStep(step + 1)} className="btn-primary text-[12px] px-4 py-2 flex items-center gap-1">بعدی <ChevronLeft size={14} /></button>
         ) : (
-          <button onClick={() => setSubmitted(true)} className="bg-emerald-500 text-white px-5 py-2 rounded-xl text-xs font-bold hover:bg-emerald-600 shadow-md shadow-emerald-200 flex items-center gap-1"><Check size={14} /> ثبت</button>
+          <button onClick={() => setSubmitted(true)} className="btn-primary text-[12px] px-5 py-2 flex items-center gap-1"><Check size={14} /> ثبت</button>
         )}
       </div>
     </div>

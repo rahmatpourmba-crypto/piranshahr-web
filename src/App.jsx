@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import WhatsAppFAB from './components/WhatsAppFAB'
 import Home from './pages/Home'
 import Ads from './pages/Ads'
 import Drivers from './pages/Drivers'
@@ -13,11 +14,7 @@ import PayIrCallback from './pages/PayIrCallback'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
-  }, [pathname])
-
+  useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: 'smooth' }) }, [pathname])
   return null
 }
 
@@ -40,6 +37,7 @@ export default function App() {
           </Routes>
         </main>
         <Footer />
+        <WhatsAppFAB />
       </div>
     </BrowserRouter>
   )

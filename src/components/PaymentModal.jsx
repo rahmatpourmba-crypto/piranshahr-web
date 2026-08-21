@@ -49,10 +49,10 @@ export default function PaymentModal({ ad, isOpen, onClose }) {
               </div>
               <div className="mb-4">
                 <input type="text" value={rrn} onChange={e => setRrn(e.target.value)}
-                  placeholder="شماره پیگیر ۱۲ رقمی" dir="ltr" className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-[13px] text-gray-700 outline-none focus:border-gray-400 transition-colors" />
+                  placeholder="شماره پیگیر ۱۲ رقمی" dir="ltr" className="input-field" />
               </div>
               <button onClick={() => { if (rrn.length >= 6) setStep('success') }}
-                className="w-full bg-gray-900 text-white py-3 rounded-xl text-[13px] font-semibold hover:bg-gray-800 transition-colors disabled:opacity-40" disabled={rrn.length < 6}>
+                className="w-full btn-primary py-3 text-[13px] disabled:opacity-40" disabled={rrn.length < 6}>
                 تأیید پرداخت
               </button>
             </>

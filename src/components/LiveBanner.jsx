@@ -18,9 +18,9 @@ export default function LiveBanner() {
   }, [])
 
   return (
-    <div className="bg-gray-50 border-b border-gray-100 py-2">
+    <div className="bg-[#FDF2F3] border-b border-[#F5E6E8] py-2">
       <div className="container flex items-center justify-center">
-        <span className="text-[12px] text-gray-400 font-medium">{messages[index]}</span>
+        <span className="text-[12px] text-[#A13D4C] font-medium">{messages[index]}</span>
       </div>
     </div>
   )
