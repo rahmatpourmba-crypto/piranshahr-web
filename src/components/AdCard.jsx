@@ -1,47 +1,48 @@
 import { trackView } from '../utils/tracker'
 
-const typeConfig = {
-  فروش: { bg: 'bg-blue-50', text: 'text-blue-600', border: 'border-blue-200', icon: '💰' },
-  معاوضه: { bg: 'bg-orange-50', text: 'text-orange-600', border: 'border-orange-200', icon: '🔄' },
-  رایگان: { bg: 'bg-emerald-50', text: 'text-emerald-600', border: 'border-emerald-200', icon: '🎁' },
-  استخدام: { bg: 'bg-purple-50', text: 'text-purple-600', border: 'border-purple-200', icon: '💼' },
-  'درخواست نیرو': { bg: 'bg-indigo-50', text: 'text-indigo-600', border: 'border-indigo-200', icon: '👷' },
-  گمشده: { bg: 'bg-red-50', text: 'text-red-600', border: 'border-red-200', icon: '🔴' },
-  پیداشده: { bg: 'bg-teal-50', text: 'text-teal-600', border: 'border-teal-200', icon: '🟢' },
-  'نوبت خالی': { bg: 'bg-cyan-50', text: 'text-cyan-600', border: 'border-cyan-200', icon: '🗓' },
+const typeColor = {
+  فروش: 'bg-blue-500', معاوضه: 'bg-orange-500', رایگان: 'bg-emerald-500', استخدام: 'bg-purple-500',
+  'درخواست نیرو': 'bg-indigo-500', گمشده: 'bg-red-500', پیداشده: 'bg-teal-500', 'نوبت خالی': 'bg-cyan-500',
+}
+const typeEmoji = {
+  فروش: '💰', معاوضه: '🔄', رایگان: '🎁', استخدام: '💼',
+  'درخواست نیرو': '👷', گمشده: '🔴', پیداشده: '🟢', 'نوبت خالی': '🗓',
 }
 
 export default function AdCard({ ad, onReveal }) {
-  const tc = typeConfig[ad.type] || { bg: 'bg-gray-50', text: 'text-gray-600', border: 'border-gray-200', icon: '📋' }
-
   const handleReveal = () => { trackView(ad.id); onReveal(ad) }
+  const tc = typeColor[ad.type] || 'bg-gray-400'
 
   return (
-    <div className="card overflow-hidden flex flex-col animate-fade-up">
-      <div className="p-4 flex flex-col flex-1">
-        <div className="flex items-center justify-between mb-3">
-          <span className={`badge ${tc.bg} ${tc.text} border ${tc.border}`}>
-            {tc.icon} {ad.type}
-          </span>
-          <span className="text-[10px] text-gray-400 font-medium">{ad.date}</span>
+    <div className="bg-white rounded-2xl border border-gray-100 hover:border-gray-200 hover:shadow-lg transition-all duration-300 overflow-hidden group">
+      <div className="p-4">
+        <div className="flex items-start justify-between mb-2">
+          <h3 className="font-extrabold text-gray-900 text-sm leading-relaxed flex-1 ml-2 line-clamp-1">{ad.title}</h3>
+          <span className={`w-1 h-1 rounded-full ${tc} flex-shrink-0 mt-2`} />
         </div>
 
-        <h3 className="font-extrabold text-gray-900 text-[15px] mb-1.5 line-clamp-1 leading-relaxed">{ad.title}</h3>
-        <p className="text-gray-500 text-xs leading-relaxed mb-3 line-clamp-2 flex-1">{ad.description}</p>
+        <p className="text-gray-400 text-xs leading-relaxed mb-3 line-clamp-1">{ad.description}</p>
 
-        <div className="flex items-center justify-between mb-3">
-          <span className={`font-extrabold text-base ${
+        <div className="flex items-center gap-2 mb-3">
+          <span className={`text-[10px] font-bold text-white ${tc} px-2 py-0.5 rounded-md`}>
+            {typeEmoji[ad.type] || ''} {ad.type}
+          </span>
+          <span className="text-[10px] text-gray-400">{ad.city}</span>
+          <span className="text-[10px] text-gray-300 mr-auto">{ad.date}</span>
+        </div>
+
+        <div className="flex items-center justify-between">
+          <span className={`font-extrabold text-lg ${
             ad.price === 'رایگان' ? 'text-emerald-500' : ad.type === 'معاوضه' ? 'text-orange-500' : 'text-blue-600'
           }`}>
-            {ad.price === 'رایگان' ? '🎁 رایگان' : ad.type === 'معاوضه' ? '🔄 معاوضه' : `${ad.price} تومان`}
+            {ad.price === 'رایگان' ? 'رایگان' : ad.type === 'معاوضه' ? 'معاوضه' : `${ad.price}`}
+            {ad.price !== 'رایگان' && ad.type !== 'معاوضه' && <span className="text-xs font-medium text-gray-400 mr-0.5">تومان</span>}
           </span>
-          <span className="text-[10px] text-gray-400 bg-gray-50 px-2 py-0.5 rounded-full font-medium">📍 {ad.city}</span>
+          <button onClick={handleReveal}
+            className="bg-blue-50 text-blue-600 px-3 py-1.5 rounded-lg text-[11px] font-bold hover:bg-blue-600 hover:text-white transition-all">
+            مشاهده شماره
+          </button>
         </div>
-
-        <button onClick={handleReveal}
-          className="w-full btn-primary text-xs py-2.5 flex items-center justify-center gap-1.5">
-          📞 مشاهده شماره تماس
-        </button>
       </div>
     </div>
   )
