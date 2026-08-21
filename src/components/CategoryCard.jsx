@@ -1,4 +1,4 @@
-import { Link } from 'react-router-link'
+import { Link } from 'react-router-dom'
 
 const colorMap = {
   blue: 'from-blue-500 to-blue-600 shadow-blue-500/25',
