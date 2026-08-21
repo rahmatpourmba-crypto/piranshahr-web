@@ -2,10 +2,14 @@ import { useState, useEffect } from 'react'
 import ads from '../data/ads.json'
 
 const messages = [
-  { text: `${ads.filter((a) => a.type === 'گمشده').length} آگهی گمشده ثبت شده`, color: 'text-red-500', emoji: '🔴' },
+  { text: `${ads.filter((a) => a.category === 'گمشده').length} آگهی گمشده ثبت شده`, color: 'text-red-500', emoji: '🔴' },
   { text: `${ads.filter((a) => a.category === 'رایگان').length} هدیه رایگان موجود است`, color: 'text-emerald-500', emoji: '🎁' },
   { text: `${ads.filter((a) => a.category === 'فروش').length} آگهی فروش ثبت شد`, color: 'text-blue-500', emoji: '💰' },
-  { text: `${ads.filter((a) => a.category === 'نوبت خالی').length} نوبت خالی منتظر شماست`, color: 'text-orange-500', emoji: '🗓' },
+  { text: `${ads.filter((a) => a.category === 'املاک').length} آگهی املاک موجود است`, color: 'text-emerald-500', emoji: '🏠' },
+  { text: `${ads.filter((a) => a.category === 'خودرو').length} آگهی خودرو ثبت شد`, color: 'text-red-500', emoji: '🚗' },
+  { text: `${ads.filter((a) => a.category === 'خدمات').length} خدمات فنی و ساختمانی`, color: 'text-purple-500', emoji: '🔧' },
+  { text: `${ads.filter((a) => a.category === 'معاوضه کالا').length} آگهی معاوضه کالا`, color: 'text-orange-500', emoji: '🔄' },
+  { text: `${ads.filter((a) => a.category === 'نوبت خالی').length} نوبت خالی منتظر شماست`, color: 'text-cyan-500', emoji: '🗓' },
 ]
 
 export default function LiveBanner() {

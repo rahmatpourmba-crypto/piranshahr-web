@@ -4,9 +4,11 @@ import ads from '../data/ads.json'
 export default function Hero() {
   const counts = {
     فروش: ads.filter((a) => a.category === 'فروش').length,
-    معاوضه: ads.filter((a) => a.category === 'معاوضه غذا').length,
+    املاک: ads.filter((a) => a.category === 'املاک').length,
+    خودرو: ads.filter((a) => a.category === 'خودرو').length,
+    خدمات: ads.filter((a) => a.category === 'خدمات').length,
+    معاوضه: ads.filter((a) => a.category === 'معاوضه غذا' || a.category === 'معاوضه کالا').length,
     رایگان: ads.filter((a) => a.category === 'رایگان').length,
-    استخدام: ads.filter((a) => a.category === 'استخدام').length,
   }
 
   return (
@@ -30,7 +32,7 @@ export default function Hero() {
             <span className="text-orange-300">پیرانشهر</span>
           </h1>
           <p className="text-blue-200 text-sm md:text-base mb-8 max-w-lg mx-auto leading-relaxed">
-            خرید، فروش، معاوضه غذا، استخدام و خدمات محلی — همه در یک مکان
+            خرید، فروش، املاک، خودرو، معاوضه، خدمات و استخدام محلی — همه در یک مکان
           </p>
 
           <div className="flex flex-wrap justify-center gap-2 mb-8">
@@ -38,13 +40,19 @@ export default function Hero() {
               💰 {counts.فروش} فروش
             </span>
             <span className="bg-white/15 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-medium border border-white/10">
-              🍲 {counts.معاوضه} معاوضه
+              🏠 {counts.املاک} املاک
+            </span>
+            <span className="bg-white/15 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-medium border border-white/10">
+              🚗 {counts.خودرو} خودرو
+            </span>
+            <span className="bg-white/15 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-medium border border-white/10">
+              🔧 {counts.خدمات} خدمات
+            </span>
+            <span className="bg-white/15 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-medium border border-white/10">
+              🔄 {counts.معاوضه} معاوضه
             </span>
             <span className="bg-white/15 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-medium border border-white/10">
               🎁 {counts.رایگان} رایگان
-            </span>
-            <span className="bg-white/15 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-medium border border-white/10">
-              💼 {counts.استخدام} استخدام
             </span>
           </div>
 

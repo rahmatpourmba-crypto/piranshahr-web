@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Store, UtensilsCrossed, Gift, Briefcase, Search, CalendarClock, Flame, Star } from 'lucide-react'
+import { Store, UtensilsCrossed, Gift, Briefcase, Search, CalendarClock, Star, Home as HomeIcon, Car, Wrench, ArrowLeftRight } from 'lucide-react'
 import Hero from '../components/Hero'
 import CategoryCard from '../components/CategoryCard'
 import LiveBanner from '../components/LiveBanner'
@@ -10,9 +10,13 @@ import { getPopularAds, getUrgentAds } from '../utils/recommendations'
 
 const categories = [
   { icon: Store, title: 'فروش', cat: 'فروش', link: '/ads?cat=فروش', color: 'blue' },
+  { icon: HomeIcon, title: 'املاک', cat: 'املاک', link: '/ads?cat=املاک', color: 'emerald' },
+  { icon: Car, title: 'خودرو', cat: 'خودرو', link: '/ads?cat=خودرو', color: 'red' },
+  { icon: Wrench, title: 'خدمات', cat: 'خدمات', link: '/ads?cat=خدمات', color: 'purple' },
   { icon: UtensilsCrossed, title: 'معاوضه غذا', cat: 'معاوضه غذا', link: '/ads?cat=معاوضه غذا', color: 'orange' },
+  { icon: ArrowLeftRight, title: 'معاوضه کالا', cat: 'معاوضه کالا', link: '/ads?cat=معاوضه کالا', color: 'amber' },
   { icon: Gift, title: 'رایگان', cat: 'رایگان', link: '/ads?cat=رایگان', color: 'green' },
-  { icon: Briefcase, title: 'استخدام', cat: 'استخدام', link: '/ads?cat=استخدام', color: 'purple' },
+  { icon: Briefcase, title: 'استخدام', cat: 'استخدام', link: '/ads?cat=استخدام', color: 'indigo' },
   { icon: Search, title: 'گمشده و پیداشده', cat: 'گمشده', link: '/ads?cat=گمشده', color: 'red' },
   { icon: CalendarClock, title: 'نوبت خالی', cat: 'نوبت خالی', link: '/ads?cat=نوبت خالی', color: 'teal' },
 ]
@@ -32,7 +36,7 @@ export default function Home() {
             <Star size={16} className="text-blue-500 fill-blue-500" />
             <h2 className="font-extrabold text-base text-gray-900">دسته‌بندی‌ها</h2>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5">
             {categories.map((c) => (
               <CategoryCard key={c.cat} icon={c.icon} title={c.title}
                 count={adsData.filter((a) => a.category === c.cat).length} link={c.link} color={c.color} />
@@ -56,7 +60,7 @@ export default function Home() {
         {urgentAds.length > 0 && (
           <section>
             <div className="flex items-center gap-2 mb-4">
-              <Flame size={16} className="text-red-500 fill-red-500" />
+              <Star size={16} className="text-red-500 fill-red-500" />
               <h2 className="font-extrabold text-base text-gray-900">فوری: فرصت‌های ویژه</h2>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
