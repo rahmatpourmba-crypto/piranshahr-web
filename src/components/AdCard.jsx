@@ -36,57 +36,58 @@ export default function AdCard({ ad, onReveal }) {
   const ps = ad.premium ? premiumStyle[ad.premium] : null
 
   return (
-    <div className={`bg-white rounded-2xl border hover:shadow-lg transition-all duration-300 overflow-hidden group ${
-      ps ? `${ps.border} shadow-md ${ps.shadow}` : 'border-gray-100 hover:border-gray-200'
-    }`}>
+    <div className={`bg-white rounded-[20px] border hover:shadow-xl transition-all duration-300 overflow-hidden group cursor-pointer ${
+      ps ? `${ps.border} shadow-lg ${ps.shadow}` : 'border-gray-100/80 hover:border-gray-200'
+    }`}
+      onClick={handleReveal}>
       {ps && (
-        <div className={`${ps.badge} px-3 py-1 text-white text-[10px] font-bold flex items-center gap-1`}>
+        <div className={`${ps.badge} px-4 py-1.5 text-white text-[11px] font-bold flex items-center gap-1.5 tracking-wide`}>
           {ps.label}
         </div>
       )}
-      <div className="p-4">
-        <div className="flex items-start justify-between mb-2">
-          <h3 className="font-extrabold text-gray-900 text-sm leading-relaxed flex-1 ml-2 line-clamp-1">{ad.title}</h3>
-          <span className={`w-1 h-1 rounded-full ${tc} flex-shrink-0 mt-2`} />
+      <div className="p-5">
+        <div className="flex items-start justify-between mb-3">
+          <h3 className="font-extrabold text-gray-900 text-[15px] leading-[1.8] flex-1 ml-3 line-clamp-1 tracking-tight">{ad.title}</h3>
+          <span className={`w-2 h-2 rounded-full ${tc} flex-shrink-0 mt-2 shadow-sm`} />
         </div>
 
-        <p className="text-gray-400 text-xs leading-relaxed mb-3 line-clamp-1">{ad.description}</p>
+        <p className="text-gray-400 text-[13px] leading-[1.9] mb-4 line-clamp-1">{ad.description}</p>
 
         {(ad.wants || ad.hasItem) && (
-          <div className="flex items-center gap-1.5 mb-3 flex-wrap">
+          <div className="flex items-center gap-2 mb-4 flex-wrap">
             {ad.hasItem && (
-              <span className="text-[10px] font-bold bg-orange-50 text-orange-600 px-2 py-0.5 rounded-md border border-orange-100">
+              <span className="text-[11px] font-semibold bg-orange-50 text-orange-600 px-3 py-1 rounded-xl border border-orange-100/80">
                 🔄 دارد: {ad.hasItem}
               </span>
             )}
             {ad.wants && (
-              <span className="text-[10px] font-bold bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded-md border border-emerald-100">
+              <span className="text-[11px] font-semibold bg-emerald-50 text-emerald-600 px-3 py-1 rounded-xl border border-emerald-100/80">
                 🎯 میخواهد: {ad.wants}
               </span>
             )}
           </div>
         )}
 
-        <div className="flex items-center gap-2 mb-3">
-          <span className={`text-[10px] font-bold text-white ${tc} px-2 py-0.5 rounded-md`}>
+        <div className="flex items-center gap-2.5 mb-4">
+          <span className={`text-[11px] font-bold text-white ${tc} px-2.5 py-1 rounded-lg`}>
             {typeEmoji[ad.type] || typeEmoji[ad.category] || ''} {ad.type || ad.category}
           </span>
-          <span className="text-[10px] text-gray-400">{ad.city}</span>
-          {ad.subType && <span className="text-[10px] text-gray-300">{ad.subType}</span>}
-          <span className="text-[10px] text-gray-300 mr-auto">{ad.date}</span>
+          <span className="text-[12px] text-gray-400 font-medium">{ad.city}</span>
+          {ad.subType && <span className="text-[11px] text-gray-300 font-medium">{ad.subType}</span>}
+          <span className="text-[11px] text-gray-300 mr-auto font-medium">{ad.date}</span>
         </div>
 
-        <div className="flex items-center justify-between">
-          <span className={`font-extrabold text-lg ${
+        <div className="flex items-center justify-between pt-3 border-t border-gray-50">
+          <span className={`font-extrabold text-[18px] tracking-tight ${
             ad.price === 'رایگان' || ad.price === 0 ? 'text-emerald-500' :
-            ad.type === 'معاوضه' ? 'text-orange-500' : 'text-blue-600'
+            ad.type === 'معاوضه' ? 'text-orange-500' : 'text-gray-900'
           }`}>
             {formatPrice(ad.price, ad.type)}
             {ad.price !== 'رایگان' && ad.price !== 0 && ad.type !== 'معاوضه' && ad.price != null &&
-              <span className="text-xs font-medium text-gray-400 mr-0.5">تومان</span>}
+              <span className="text-[12px] font-semibold text-gray-400 mr-1">تومان</span>}
           </span>
-          <button onClick={handleReveal}
-            className="bg-blue-50 text-blue-600 px-3 py-1.5 rounded-lg text-[11px] font-bold hover:bg-blue-600 hover:text-white transition-all">
+          <button onClick={(e) => { e.stopPropagation(); handleReveal() }}
+            className="bg-gray-900 text-white px-4 py-2 rounded-xl text-[12px] font-bold hover:bg-gray-800 transition-all shadow-sm">
             مشاهده شماره
           </button>
         </div>

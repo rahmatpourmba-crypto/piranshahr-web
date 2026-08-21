@@ -13,54 +13,54 @@ export default function Hero() {
 
   return (
     <section className="relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800" />
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-10 right-20 w-80 h-80 bg-orange-400 rounded-full blur-[100px]" />
-        <div className="absolute bottom-10 left-20 w-60 h-60 bg-red-400 rounded-full blur-[80px]" />
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900" />
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-blue-500 rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-orange-500 rounded-full blur-[100px]" />
       </div>
 
-      <div className="relative max-w-6xl mx-auto px-4 py-14 md:py-18">
+      <div className="relative max-w-6xl mx-auto px-5 py-16 md:py-20">
         <div className="text-center animate-fade-up">
-          <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm rounded-full px-4 py-1.5 mb-5 border border-white/20">
-            <span className="w-1.5 h-1.5 bg-orange-400 rounded-full animate-pulse-dot" />
-            <span className="text-xs text-blue-100 font-medium">بازارچه آنلاین محلی</span>
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-5 py-2 mb-6 border border-white/10">
+            <span className="w-2 h-2 bg-orange-400 rounded-full animate-pulse-dot" />
+            <span className="text-[13px] text-white/70 font-medium tracking-wide">بازارچه آنلاین محلی</span>
           </div>
 
-          <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-3 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4 leading-[1.3] tracking-tight">
             بازارچه محلی
             <br />
-            <span className="text-orange-300">پیرانشهر</span>
+            <span className="bg-gradient-to-l from-orange-300 to-amber-200 bg-clip-text text-transparent">پیرانشهر</span>
           </h1>
-          <p className="text-blue-200 text-sm md:text-base mb-8 max-w-lg mx-auto leading-relaxed">
+          <p className="text-white/50 text-[15px] md:text-[17px] mb-10 max-w-lg mx-auto leading-[2] font-medium">
             خرید، فروش، املاک، خودرو، معاوضه، خدمات و استخدام محلی — همه در یک مکان
           </p>
 
-          <div className="flex flex-wrap justify-center gap-2 mb-8">
-            <span className="bg-white/15 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-medium border border-white/10">
+          <div className="flex flex-wrap justify-center gap-2.5 mb-10">
+            <span className="bg-white/10 backdrop-blur-sm text-white/80 px-4 py-2 rounded-2xl text-[13px] font-semibold border border-white/5">
               💰 {counts.فروش} فروش
             </span>
-            <span className="bg-white/15 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-medium border border-white/10">
+            <span className="bg-white/10 backdrop-blur-sm text-white/80 px-4 py-2 rounded-2xl text-[13px] font-semibold border border-white/5">
               🏠 {counts.املاک} املاک
             </span>
-            <span className="bg-white/15 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-medium border border-white/10">
+            <span className="bg-white/10 backdrop-blur-sm text-white/80 px-4 py-2 rounded-2xl text-[13px] font-semibold border border-white/5">
               🚗 {counts.خودرو} خودرو
             </span>
-            <span className="bg-white/15 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-medium border border-white/10">
+            <span className="bg-white/10 backdrop-blur-sm text-white/80 px-4 py-2 rounded-2xl text-[13px] font-semibold border border-white/5">
               🔧 {counts.خدمات} خدمات
             </span>
-            <span className="bg-white/15 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-medium border border-white/10">
+            <span className="bg-white/10 backdrop-blur-sm text-white/80 px-4 py-2 rounded-2xl text-[13px] font-semibold border border-white/5">
               🔄 {counts.معاوضه} معاوضه
             </span>
-            <span className="bg-white/15 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-medium border border-white/10">
+            <span className="bg-white/10 backdrop-blur-sm text-white/80 px-4 py-2 rounded-2xl text-[13px] font-semibold border border-white/5">
               🎁 {counts.رایگان} رایگان
             </span>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link to="/ads" className="bg-white text-blue-700 font-bold px-6 py-3 rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-blue-900/20 text-sm">
+            <Link to="/ads" className="bg-white text-gray-900 font-bold px-8 py-3.5 rounded-2xl hover:bg-gray-50 transition-all shadow-xl shadow-black/10 text-[14px] tracking-tight">
               مشاهده آگهی‌ها
             </Link>
-            <Link to="/submit" className="bg-orange-500 text-white font-bold px-6 py-3 rounded-xl hover:bg-orange-600 transition-all shadow-lg shadow-orange-500/30 text-sm border border-orange-400">
+            <Link to="/submit" className="bg-orange-500 text-white font-bold px-8 py-3.5 rounded-2xl hover:bg-orange-600 transition-all shadow-xl shadow-orange-500/20 text-[14px] tracking-tight">
               + ثبت آگهی رایگان
             </Link>
           </div>
