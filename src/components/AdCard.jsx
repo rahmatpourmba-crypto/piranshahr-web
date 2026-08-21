@@ -15,6 +15,12 @@ const typeEmoji = {
   'خدمات فنی': '🔧', 'خدمات خودرو': '🚗', 'خدمات ساختمانی': '🏗',
 }
 
+const premiumStyle = {
+  'ویژه': { border: 'border-amber-300', badge: 'bg-amber-500', label: '⭐ ویژه', shadow: 'shadow-amber-100' },
+  'بالای صفحه': { border: 'border-blue-300', badge: 'bg-blue-500', label: '📌 بالای صفحه', shadow: 'shadow-blue-100' },
+  'فوری': { border: 'border-red-300', badge: 'bg-red-500', label: '🔥 فوری', shadow: 'shadow-red-100' },
+}
+
 function formatPrice(price, type) {
   if (price === 'رایگان' || price === 0) return 'رایگان'
   if (type === 'معاوضه') return 'معاوضه'
@@ -27,9 +33,17 @@ function formatPrice(price, type) {
 export default function AdCard({ ad, onReveal }) {
   const handleReveal = () => { trackView(ad.id); onReveal(ad) }
   const tc = typeColor[ad.type] || typeColor[ad.category] || 'bg-gray-400'
+  const ps = ad.premium ? premiumStyle[ad.premium] : null
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 hover:border-gray-200 hover:shadow-lg transition-all duration-300 overflow-hidden group">
+    <div className={`bg-white rounded-2xl border hover:shadow-lg transition-all duration-300 overflow-hidden group ${
+      ps ? `${ps.border} shadow-md ${ps.shadow}` : 'border-gray-100 hover:border-gray-200'
+    }`}>
+      {ps && (
+        <div className={`${ps.badge} px-3 py-1 text-white text-[10px] font-bold flex items-center gap-1`}>
+          {ps.label}
+        </div>
+      )}
       <div className="p-4">
         <div className="flex items-start justify-between mb-2">
           <h3 className="font-extrabold text-gray-900 text-sm leading-relaxed flex-1 ml-2 line-clamp-1">{ad.title}</h3>

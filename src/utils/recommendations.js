@@ -15,6 +15,11 @@ const RELATED_CATEGORIES = {
 
 const URGENT_TYPES = ["رایگان", "گمشده", "پیداشده"];
 
+function premiumSort(a, b) {
+  const order = { 'فوری': 3, 'ویژه': 2, 'بالای صفحه': 1 }
+  return (order[b.premium] || 0) - (order[a.premium] || 0)
+}
+
 export function getRelatedCategories(category) {
   return RELATED_CATEGORIES[category] || [];
 }
@@ -26,6 +31,7 @@ export function getRecommendations(currentAd, allAds) {
   const others = allAds.filter((ad) => ad && ad.id !== currentAd.id);
   const sameCategory = others
     .filter((ad) => ad.category === currentAd.category)
+    .sort(premiumSort)
     .slice(0, 3);
   const relatedCats = getRelatedCategories(currentAd.category);
   let related = others.filter(
@@ -37,13 +43,13 @@ export function getRecommendations(currentAd, allAds) {
     );
     related = related.concat(extra);
   }
-  return { sameCategory, related: related.slice(0, 3) };
+  return { sameCategory, related: related.sort(premiumSort).slice(0, 3) };
 }
 
 export function getPopularAds(allAds) {
   if (!Array.isArray(allAds)) return [];
   return [...allAds]
-    .sort((a, b) => String(b.date).localeCompare(String(a.date)))
+    .sort((a, b) => premiumSort(a, b) || String(b.date).localeCompare(String(a.date)))
     .slice(0, 6);
 }
 
@@ -52,10 +58,11 @@ export function getUrgentAds(allAds) {
   return allAds
     .filter(
       (ad) =>
+        ad.premium === 'فوری' ||
         URGENT_TYPES.includes(ad.type) || URGENT_TYPES.includes(ad.category)
     )
-    .sort((a, b) => String(b.date).localeCompare(String(a.date)))
-    .slice(0, 3);
+    .sort((a, b) => premiumSort(a, b) || String(b.date).localeCompare(String(a.date)))
+    .slice(0, 4);
 }
 
 export function getSmartSuggestions(history, allAds) {
@@ -78,9 +85,14 @@ export function getSmartSuggestions(history, allAds) {
   if (viewedIds.size === 0) return [];
   return [...allAds]
     .filter((ad) => !viewedIds.has(ad.id))
-    .sort(
-      (a, b) =>
-        (categoryCounts[b.category] || 0) - (categoryCounts[a.category] || 0)
+    .sort((a, b) =>
+      premiumSort(a, b) ||
+      (categoryCounts[b.category] || 0) - (categoryCounts[a.category] || 0)
     )
     .slice(0, 4);
+}
+
+export function sortAdsByPremium(ads) {
+  if (!Array.isArray(ads)) return []
+  return [...ads].sort(premiumSort)
 }

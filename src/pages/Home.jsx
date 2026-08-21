@@ -47,7 +47,7 @@ export default function Home() {
         <section>
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <Star size={16} className="text-orange-400 fill-orange-400" />
+              <Star size={16} className="text-amber-400 fill-amber-400" />
               <h2 className="font-extrabold text-base text-gray-900">پیشنهاد ویژه</h2>
             </div>
             <a href="/piranshahr-web/ads" className="text-xs text-blue-500 font-bold hover:text-blue-700">مشاهده همه ←</a>

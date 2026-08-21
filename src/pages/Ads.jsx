@@ -6,6 +6,7 @@ import PaymentModal from '../components/PaymentModal'
 import SmartBarter from '../components/SmartBarter'
 import adsData from '../data/ads.json'
 import { trackView } from '../utils/tracker'
+import { sortAdsByPremium } from '../utils/recommendations'
 
 const CATEGORIES = [
   { key: 'همه', icon: '📋' },
@@ -45,13 +46,14 @@ export default function Ads() {
 
   const filteredAds = useMemo(() => {
     const q = query.trim()
-    return adsData.filter((ad) => {
+    const result = adsData.filter((ad) => {
       const matchCat = activeCat === 'همه' || ad.category === activeCat || ad.type === activeCat
       const matchSubCat = !userSubCat || ad.subType === userSubCat
       const matchQuery = q === '' || ad.title.includes(q) || (ad.description || '').includes(q) ||
         (ad.hasItem || '').includes(q) || (ad.wants || '').includes(q)
       return matchCat && matchSubCat && matchQuery
     })
+    return sortAdsByPremium(result)
   }, [activeCat, userSubCat, query])
 
   const handleReveal = (ad) => { setSelectedAd(ad); trackView(ad.id, ad.category) }
@@ -144,9 +146,10 @@ export default function Ads() {
 
 function ListCard({ ad, onReveal }) {
   const tc = { فروش: 'bg-blue-500', معاوضه: 'bg-orange-500', رایگان: 'bg-emerald-500', استخدام: 'bg-purple-500', گمشده: 'bg-red-500', پیداشده: 'bg-teal-500', 'نوبت خالی': 'bg-cyan-500', 'درخواست نیرو': 'bg-indigo-500', 'فروش ملک': 'bg-emerald-500', اجاره: 'bg-teal-500', 'فروش خودرو': 'bg-red-500', 'خدمات فنی': 'bg-purple-500', 'خدمات خودرو': 'bg-amber-500', 'خدمات ساختمانی': 'bg-indigo-500', 'معاوضه': 'bg-orange-500' }
+  const premiumBorder = { 'ویژه': 'border-r-4 border-r-amber-400', 'بالای صفحه': 'border-r-4 border-r-blue-400', 'فوری': 'border-r-4 border-r-red-400' }
 
   return (
-    <div className="bg-white rounded-xl border border-gray-100 hover:border-gray-200 hover:shadow-md transition-all p-3 flex items-center gap-3">
+    <div className={`bg-white rounded-xl border border-gray-100 hover:border-gray-200 hover:shadow-md transition-all p-3 flex items-center gap-3 ${premiumBorder[ad.premium] || ''}`}>
       <span className={`w-1.5 h-1.5 rounded-full ${tc[ad.type] || 'bg-gray-400'} flex-shrink-0`} />
       <div className="flex-1 min-w-0">
         <h3 className="font-bold text-gray-900 text-sm truncate">{ad.title}</h3>
