@@ -23,21 +23,19 @@ export default function Home() {
   const urgentAds = getUrgentAds(adsData)
 
   return (
-    <div className="noise-bg">
+    <div>
       <Hero />
       <LiveBanner />
-
-      <div className="relative z-10 max-w-6xl mx-auto px-4 py-8 space-y-10">
+      <div className="max-w-6xl mx-auto px-4 py-8 space-y-10">
         <section>
           <div className="flex items-center gap-2 mb-4">
-            <Star size={16} className="text-indigo-400 fill-indigo-400" />
-            <h2 className="font-extrabold text-base text-white">دسته‌بندی‌ها</h2>
+            <Star size={16} className="text-blue-500 fill-blue-500" />
+            <h2 className="font-extrabold text-base text-gray-900">دسته‌بندی‌ها</h2>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
-            {categories.map((item) => (
-              <CategoryCard key={item.cat} icon={item.icon} title={item.title}
-                count={adsData.filter((ad) => ad.category === item.cat).length}
-                link={item.link} color={item.color} />
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
+            {categories.map((c) => (
+              <CategoryCard key={c.cat} icon={c.icon} title={c.title}
+                count={adsData.filter((a) => a.category === c.cat).length} link={c.link} color={c.color} />
             ))}
           </div>
         </section>
@@ -45,10 +43,10 @@ export default function Home() {
         <section>
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <Star size={16} className="text-yellow-400 fill-yellow-400" />
-              <h2 className="font-extrabold text-base text-white">پیشنهاد ویژه</h2>
+              <Star size={16} className="text-orange-400 fill-orange-400" />
+              <h2 className="font-extrabold text-base text-gray-900">پیشنهاد ویژه</h2>
             </div>
-            <a href="/piranshahr-web/ads" className="text-xs text-indigo-400 font-medium hover:text-indigo-300 transition-colors">مشاهده همه ←</a>
+            <a href="/piranshahr-web/ads" className="text-xs text-blue-500 font-bold hover:text-blue-700">مشاهده همه ←</a>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {popularAds.map((ad) => <AdCard key={ad.id} ad={ad} onReveal={setSelectedAd} />)}
@@ -58,8 +56,8 @@ export default function Home() {
         {urgentAds.length > 0 && (
           <section>
             <div className="flex items-center gap-2 mb-4">
-              <Flame size={16} className="text-red-400 fill-red-400" />
-              <h2 className="font-extrabold text-base text-white">فوری: فرصت‌های ویژه</h2>
+              <Flame size={16} className="text-red-500 fill-red-500" />
+              <h2 className="font-extrabold text-base text-gray-900">فوری: فرصت‌های ویژه</h2>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {urgentAds.map((ad) => <AdCard key={ad.id} ad={ad} onReveal={setSelectedAd} />)}
@@ -67,7 +65,6 @@ export default function Home() {
           </section>
         )}
       </div>
-
       <PaymentModal ad={selectedAd} isOpen={Boolean(selectedAd)} onClose={() => setSelectedAd(null)} />
     </div>
   )
