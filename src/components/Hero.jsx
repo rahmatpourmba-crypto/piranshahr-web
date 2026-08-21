@@ -46,14 +46,12 @@ export default function Hero() {
             >
               مشاهده آگهی‌ها
             </Link>
-            <a
-              href="https://t.me/Superapoiranshar_bot"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white/15 border border-white/25 text-white font-bold px-5 py-2.5 rounded-xl hover:bg-white/25 transition-all text-sm"
+            <Link
+              to="/submit"
+              className="bg-emerald-500 border border-emerald-400 text-white font-bold px-5 py-2.5 rounded-xl hover:bg-emerald-600 transition-all text-sm shadow-lg shadow-emerald-900/20"
             >
-              ثبت آگهی در تلگرام
-            </a>
+              + ثبت آگهی رایگان
+            </Link>
           </div>
         </div>
       </div>

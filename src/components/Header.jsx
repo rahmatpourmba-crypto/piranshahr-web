@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, Home, Car, Truck, Phone, Info, List } from 'lucide-react'
+import { Menu, X, Home, Car, Truck, Phone, Info, List, PlusCircle } from 'lucide-react'
 
 const navLinks = [
   { to: '/', label: 'خانه', icon: Home },
   { to: '/ads', label: 'آگهی‌ها', icon: List },
+  { to: '/submit', label: 'ثبت آگهی', icon: PlusCircle },
   { to: '/drivers', label: 'رانندگان', icon: Car },
   { to: '/cargo', label: 'حمل بار', icon: Truck },
   { to: '/taxi', label: 'تاکسی', icon: Phone },
-  { to: '/about', label: 'درباره ما', icon: Info },
 ]
 
 export default function Header() {

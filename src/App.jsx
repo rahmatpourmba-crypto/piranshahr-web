@@ -8,6 +8,7 @@ import Drivers from './pages/Drivers'
 import CargoTransport from './pages/CargoTransport'
 import Taxi from './pages/Taxi'
 import About from './pages/About'
+import Submit from './pages/Submit'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -33,6 +34,7 @@ export default function App() {
             <Route path="/cargo" element={<CargoTransport />} />
             <Route path="/taxi" element={<Taxi />} />
             <Route path="/about" element={<About />} />
+            <Route path="/submit" element={<Submit />} />
           </Routes>
         </main>
         <Footer />

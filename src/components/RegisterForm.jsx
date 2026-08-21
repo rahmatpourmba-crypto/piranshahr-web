@@ -29,16 +29,19 @@ export default function RegisterForm({ type }) {
     }))
   }
 
+  const [submitted, setSubmitted] = useState(false)
   const handleSubmit = () => {
-    let msg = `📋 ثبت‌نام ${type === 'driver' ? 'راننده' : 'حمل‌کننده'}\n`
-    msg += `نام: ${form.name}\nتلفن: ${form.phone}\n`
-    if (type === 'driver') {
-      msg += `خودرو: ${form.vehicleType}\nپلاک: ${form.plate}\nنوع خدمت: ${form.serviceType}\n`
-    } else {
-      msg += `وسیله: ${form.cargoVehicle}\nظرفیت: ${form.capacity}\nنوع بار: ${form.cargoType}\n`
-    }
-    msg += `مسیرها: ${form.routes.join(', ')}`
-    window.open(`https://t.me/Superapoiranshar_bot?text=${encodeURIComponent(msg)}`, '_blank')
+    setSubmitted(true)
+  }
+
+  if (submitted) {
+    return (
+      <div className="bg-emerald-50 rounded-xl border border-emerald-200 p-6 text-center">
+        <div className="text-4xl mb-2">✅</div>
+        <h3 className="font-bold text-sm text-emerald-700 mb-1">ثبت‌نام شما ثبت شد!</h3>
+        <p className="text-xs text-emerald-600">اطلاعات شما ذخیره شد و به‌زودی با شما تماس گرفته میشود.</p>
+      </div>
+    )
   }
 
   return (

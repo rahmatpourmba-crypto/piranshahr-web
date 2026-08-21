@@ -25,10 +25,22 @@ export default function TaxiForm() {
     (d) => d.active && (d.serviceType === 'taxi' || d.serviceType === 'both')
   )
 
+  const [submitted, setSubmitted] = useState(false)
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    const msg = `🚕 درخواست تاکسی\nمبدأ: ${origin}\nمقصد: ${destination}\nنوع خودرو: ${vehicleType}\nقیمت تقریبی: ${estimatedPrice.toLocaleString()} تومان`
-    window.open(`https://t.me/Superapoiranshar_bot?text=${encodeURIComponent(msg)}`, '_blank')
+    setSubmitted(true)
+  }
+
+  if (submitted) {
+    return (
+      <div className="bg-emerald-50 rounded-xl border border-emerald-200 p-6 text-center">
+        <div className="text-4xl mb-2">✅</div>
+        <h3 className="font-bold text-sm text-emerald-700 mb-1">درخواست تاکسی ثبت شد!</h3>
+        <p className="text-xs text-emerald-600">مبدأ: {origin} → مقصد: {destination}</p>
+        <p className="text-xs text-emerald-500 mt-1">راننده‌های نزدیک به‌زودی با شما تماس میگیرند.</p>
+      </div>
+    )
   }
 
   return (

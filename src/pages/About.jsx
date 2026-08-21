@@ -1,4 +1,4 @@
-import { Info, ListChecks, AlertTriangle, Send, Phone, MapPin, CreditCard } from 'lucide-react'
+import { Info, ListChecks, AlertTriangle, Phone, MapPin, CreditCard } from 'lucide-react'
 
 const steps = [
   'دسته‌بندی مورد نظر را انتخاب کنید.',
@@ -59,10 +59,6 @@ export default function About() {
 
       <section className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm space-y-2">
         <h2 className="font-bold text-sm">ارتباط با ما</h2>
-        <a href="https://t.me/Superapoiranshar_bot" target="_blank" rel="noreferrer"
-          className="flex items-center gap-2 p-2.5 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 transition text-xs font-medium">
-          <Send size={14} /> @Superapoiranshar_bot
-        </a>
         <div className="grid grid-cols-2 gap-2">
           <div className="flex items-center gap-2 bg-gray-50 rounded-lg p-2.5">
             <Phone size={14} className="text-blue-600 shrink-0" />

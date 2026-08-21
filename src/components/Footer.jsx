@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Copy, Check, Send } from 'lucide-react'
+import { Copy, Check } from 'lucide-react'
 
 const navLinks = [
   { to: '/', label: 'خانه' },
   { to: '/ads', label: 'آگهی‌ها' },
+  { to: '/submit', label: 'ثبت آگهی' },
   { to: '/drivers', label: 'رانندگان' },
   { to: '/cargo', label: 'حمل بار' },
   { to: '/taxi', label: 'تاکسی' },
@@ -54,16 +55,13 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-bold text-sm mb-3">تماس و ثبت آگهی</h4>
-            <a
-              href="https://t.me/Superapoiranshar_bot"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 bg-blue-600 text-white px-4 py-2.5 rounded-xl text-xs font-bold hover:bg-blue-500 transition-colors mb-3"
+            <h4 className="font-bold text-sm mb-3">ثبت آگهی</h4>
+            <Link
+              to="/submit"
+              className="flex items-center justify-center gap-2 bg-emerald-600 text-white px-4 py-2.5 rounded-xl text-xs font-bold hover:bg-emerald-500 transition-colors mb-3"
             >
-              <Send size={14} />
-              ربات تلگرام
-            </a>
+              + ثبت آگهی رایگان
+            </Link>
             <p className="text-[10px] text-gray-500 leading-relaxed">
               سلب مسئولیت: این سایت صرفاً جهت اطلاع‌رسانی است و مسئولیت معاملات بر عهده طرفین می‌باشد.
             </p>
