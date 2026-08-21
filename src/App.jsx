@@ -9,6 +9,7 @@ import CargoTransport from './pages/CargoTransport'
 import Taxi from './pages/Taxi'
 import About from './pages/About'
 import Submit from './pages/Submit'
+import PayIrCallback from './pages/PayIrCallback'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -35,6 +36,7 @@ export default function App() {
             <Route path="/taxi" element={<Taxi />} />
             <Route path="/about" element={<About />} />
             <Route path="/submit" element={<Submit />} />
+            <Route path="/payir-callback" element={<PayIrCallback />} />
           </Routes>
         </main>
         <Footer />
