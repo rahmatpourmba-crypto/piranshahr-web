@@ -1,123 +1,88 @@
-import {
-  Info,
-  ListChecks,
-  AlertTriangle,
-  Send,
-  Phone,
-  MapPin,
-  CreditCard,
-} from 'lucide-react'
+import { Info, ListChecks, AlertTriangle, Send, Phone, MapPin, CreditCard } from 'lucide-react'
 
 const steps = [
-  'دسته‌بندی مورد نظر خود را از صفحه اصلی انتخاب کنید.',
-  'آگهی‌ها را مرور کرده و آگهی مناسب را باز کنید.',
-  'با شماره تماس آگهی‌دهنده مستقیماً در ارتباط باشید.',
-  'برای نمایش کالا یا خدمات خود، آگهی رایگان ثبت کنید.',
+  'دسته‌بندی مورد نظر را انتخاب کنید.',
+  'آگهی‌ها را مرور کرده و مناسب را باز کنید.',
+  'با شماره تماس مستقیماً ارتباط بگیرید.',
+  'برای ثبت آگهی خود، از ربات تلگرام استفاده کنید.',
 ]
 
 export default function About() {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-10 space-y-8">
+    <div className="max-w-3xl mx-auto px-4 py-5 space-y-4">
       <div className="flex items-center gap-2">
-        <span className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
-          <Info className="w-5 h-5" />
-        </span>
-        <h1 className="text-2xl font-bold">درباره بازارچه محلی پیرانشهر</h1>
+        <Info size={18} className="text-blue-600" />
+        <h1 className="font-extrabold text-lg text-gray-900">درباره بازارچه</h1>
       </div>
 
-      <section className="bg-card border border-border rounded-2xl p-6 space-y-4 leading-relaxed">
+      <section className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm text-sm leading-relaxed text-gray-600 space-y-3">
         <p>
           بازارچه محلی پیرانشهر یک پلتفرم رایگان برای همشهریان عزیز است تا
           کالاها و خدمات خود را به سادگی با یکدیگر معامله کنند. هدف ما ایجاد
-          فضایی امن، سریع و محلی برای خرید و فروش، معاوضه غذا، استخدام، اطلاع‌رسانی
-          گمشده و پیداشده و اعلام نوبت‌های خالی است.
+          فضایی امن، سریع و محلی برای خرید و فروش، معاوضه غذا، استخدام و اطلاع‌رسانی
+          گمشده و پیداشده است.
         </p>
         <p>
-          این پروژه با تکیه بر مشارکت مردمی اداره می‌شود؛ تمام آگهی‌ها توسط
-          همشهریان ثبت می‌شود و ارتباط خریدار و فروشنده به‌صورت مستقیم و بدون
-          واسطه انجام می‌گیرد. همچنین رانندگان تاکسی و حمل‌کننگان بار می‌توانند
-          در بخش‌های مربوطه ثبت‌نام کرده و خدمات خود را به شهروندان ارائه دهند.
-        </p>
-        <p>
-          امیدواریم این بازارچه کوچک، گامی برای سهولت زندگی روزمره مردم شریف
-          پیرانشهر باشد. نظرات و پیشنهادهای خود را از طریق ربات تلگرام یا راه‌های
-          ارتباطی زیر با ما در میان بگذارید.
+          این پروژه با تکیه بر مشارکت مردمی اداره می‌شود و تمام آگهی‌ها توسط
+          همشهریان ثبت می‌شود. رانندگان تاکسی و حمل‌کنندگان بار نیز می‌توانند
+          خدمات خود را ثبت کنند.
         </p>
       </section>
 
-      <section className="bg-card border border-border rounded-2xl p-6">
-        <div className="flex items-center gap-2 mb-4">
-          <ListChecks className="w-5 h-5 text-primary" />
-          <h2 className="text-lg font-bold">راهنمای استفاده</h2>
+      <section className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm">
+        <div className="flex items-center gap-2 mb-3">
+          <ListChecks size={16} className="text-blue-600" />
+          <h2 className="font-bold text-sm">راهنمای استفاده</h2>
         </div>
-        <ol className="space-y-3">
-          {steps.map((step, index) => (
-            <li key={step} className="flex items-start gap-3">
-              <span className="shrink-0 w-7 h-7 rounded-full bg-primary/10 text-primary text-sm font-bold flex items-center justify-center">
-                {(index + 1).toLocaleString('fa-IR')}
+        <ol className="space-y-2">
+          {steps.map((step, i) => (
+            <li key={i} className="flex items-start gap-2.5">
+              <span className="shrink-0 w-6 h-6 rounded-full bg-blue-50 text-blue-700 text-xs font-bold flex items-center justify-center border border-blue-200">
+                {i + 1}
               </span>
-              <span className="text-sm leading-relaxed pt-1">{step}</span>
+              <span className="text-xs text-gray-600 pt-0.5 leading-relaxed">{step}</span>
             </li>
           ))}
         </ol>
       </section>
 
-      <section className="bg-danger/5 border border-danger/30 rounded-2xl p-6">
-        <div className="flex items-center gap-2 mb-3">
-          <AlertTriangle className="w-5 h-5 text-danger" />
-          <h2 className="text-lg font-bold text-danger">سلب مسئولیت</h2>
+      <section className="bg-red-50 border border-red-200 rounded-xl p-4">
+        <div className="flex items-center gap-2 mb-2">
+          <AlertTriangle size={16} className="text-red-600" />
+          <h2 className="font-bold text-sm text-red-700">سلب مسئولیت</h2>
         </div>
-        <p className="text-sm leading-relaxed">
-          این وب‌سایت تنها یک بستر اطلاع‌رسانی محلی است و هیچ مسئولیتی در قبال
-          صحت آگهی‌ها، کیفیت کالا و خدمات، یا معاملات انجام‌شده میان کاربران
-          ندارد. لطفاً پیش از هر معامله، از اصالت کالا و هویت طرف مقابل اطمینان
-          حاصل کنید و از پرداخت وجه به افراد ناشناس خودداری نمایید.
+        <p className="text-xs text-red-600/80 leading-relaxed">
+          این وب‌سایت صرفاً یک بستر اطلاع‌رسانی محلی است و مسئولیتی در قبال
+          صحت آگهی‌ها یا معاملات ندارد. پیش از هر معامله از هویت طرف مقابل اطمینان حاصل کنید.
         </p>
       </section>
 
-      <section className="bg-card border border-border rounded-2xl p-6 space-y-4">
-        <h2 className="text-lg font-bold">ارتباط با ما</h2>
-        <a
-          href="https://t.me/PiranshahrBazaarBot"
-          target="_blank"
-          rel="noreferrer"
-          className="flex items-center gap-3 p-4 rounded-xl bg-[#229ED9]/10 text-[#1c7fb0] hover:bg-[#229ED9]/20 transition"
-        >
-          <Send className="w-5 h-5" />
-          <span className="text-sm font-medium">
-            ربات تلگرام بازارچه: ‎@PiranshahrBazaarBot
-          </span>
+      <section className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm space-y-2">
+        <h2 className="font-bold text-sm">ارتباط با ما</h2>
+        <a href="https://t.me/Superapoiranshar_bot" target="_blank" rel="noreferrer"
+          className="flex items-center gap-2 p-2.5 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 transition text-xs font-medium">
+          <Send size={14} /> @Superapoiranshar_bot
         </a>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div className="flex items-center gap-3 p-4 rounded-xl bg-bg">
-            <Phone className="w-5 h-5 text-primary shrink-0" />
-            <span dir="ltr" className="text-sm font-medium">
-              09143456700
-            </span>
+        <div className="grid grid-cols-2 gap-2">
+          <div className="flex items-center gap-2 bg-gray-50 rounded-lg p-2.5">
+            <Phone size={14} className="text-blue-600 shrink-0" />
+            <span dir="ltr" className="text-xs font-medium">09143456700</span>
           </div>
-          <div className="flex items-center gap-3 p-4 rounded-xl bg-bg">
-            <MapPin className="w-5 h-5 text-primary shrink-0" />
-            <span className="text-sm font-medium">
-              پیرانشهر، آذربایجان غربی
-            </span>
+          <div className="flex items-center gap-2 bg-gray-50 rounded-lg p-2.5">
+            <MapPin size={14} className="text-blue-600 shrink-0" />
+            <span className="text-xs font-medium">پیرانشهر</span>
           </div>
         </div>
       </section>
 
-      <section className="bg-gradient-to-l from-primary to-secondary-dark text-white rounded-2xl p-6">
-        <div className="flex items-center gap-2 mb-4">
-          <CreditCard className="w-5 h-5" />
-          <h2 className="text-lg font-bold">حمایت مالی از بازارچه</h2>
+      <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-xl p-4 shadow-sm">
+        <div className="flex items-center gap-2 mb-2">
+          <CreditCard size={16} />
+          <h2 className="font-bold text-sm">حمایت مالی</h2>
         </div>
-        <div className="space-y-2 text-sm">
-          <p>
-            شماره کارت:{' '}
-            <span dir="ltr" className="font-bold tracking-widest select-all">
-              6037701616939556
-            </span>
-          </p>
-          <p>به نام: عبدالباسط رحمت پور</p>
-          <p>بانک صادرات</p>
+        <div className="text-xs space-y-1 opacity-90">
+          <p>💳 <span dir="ltr" className="font-mono font-bold">6037701616939556</span></p>
+          <p>عبدالباسط رحمت پور | بانک صادرات</p>
         </div>
       </section>
     </div>

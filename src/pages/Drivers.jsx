@@ -1,96 +1,71 @@
 import { useState } from 'react'
-import { UserPlus, Users, X } from 'lucide-react'
+import { Car, Phone, Star, Filter } from 'lucide-react'
+import drivers from '../data/drivers.json'
 import DriverCard from '../components/DriverCard'
 import RegisterForm from '../components/RegisterForm'
-import driversData from '../data/drivers.json'
 
-const FILTERS = [
-  { key: 'all', label: 'همه' },
-  { key: 'taxi', label: 'تاکسی' },
-  { key: 'cargo', label: 'حمل بار' },
-  { key: 'both', label: 'هر دو' },
+const filters = [
+  { value: 'all', label: 'همه' },
+  { value: 'taxi', label: 'تاکسی' },
+  { value: 'cargo', label: 'حمل بار' },
+  { value: 'both', label: 'هر دو' },
 ]
 
 export default function Drivers() {
   const [filter, setFilter] = useState('all')
   const [showRegister, setShowRegister] = useState(false)
 
-  const filteredDrivers =
-    filter === 'all'
-      ? driversData
-      : driversData.filter((driver) => driver.serviceType === filter)
+  const filtered = drivers.filter(
+    (d) => filter === 'all' || d.serviceType === filter
+  )
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
-        <div className="flex items-center gap-2">
-          <span className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
-            <Users className="w-5 h-5" />
-          </span>
-          <h1 className="text-2xl font-bold">رانندگان پیرانشهر</h1>
+    <div className="max-w-6xl mx-auto px-4 py-5">
+      <div className="flex items-center justify-between mb-4">
+        <div>
+          <h1 className="font-extrabold text-lg text-gray-900">رانندگان پیرانشهر</h1>
+          <p className="text-xs text-gray-400 mt-0.5">{filtered.length} راننده فعال</p>
         </div>
         <button
-          type="button"
-          onClick={() => setShowRegister(true)}
-          className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white rounded-xl px-4 py-2.5 text-sm font-medium transition"
+          onClick={() => setShowRegister(!showRegister)}
+          className="bg-blue-600 text-white px-3 py-2 rounded-lg text-xs font-bold hover:bg-blue-700 transition-colors"
         >
-          <UserPlus className="w-4 h-4" />
-          ثبت‌نام راننده
+          + ثبت‌نام راننده
         </button>
       </div>
 
-      <div className="flex flex-wrap gap-2 mb-8">
-        {FILTERS.map((item) => (
+      {showRegister && (
+        <div className="mb-5">
+          <RegisterForm type="driver" />
+        </div>
+      )}
+
+      <div className="flex gap-1.5 mb-4">
+        {filters.map((f) => (
           <button
-            key={item.key}
-            type="button"
-            onClick={() => setFilter(item.key)}
-            className={`rounded-full px-4 py-2 text-sm font-medium transition ${
-              filter === item.key
-                ? 'bg-primary text-white shadow'
-                : 'bg-card text-text-light border border-border hover:border-primary hover:text-primary'
+            key={f.value}
+            onClick={() => setFilter(f.value)}
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              filter === f.value
+                ? 'bg-blue-600 text-white shadow-sm'
+                : 'bg-white text-gray-500 border border-gray-200 hover:border-blue-300'
             }`}
           >
-            {item.label}
+            {f.label}
           </button>
         ))}
       </div>
 
-      {filteredDrivers.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredDrivers.map((driver) => (
-            <DriverCard key={driver.id} driver={driver} />
-          ))}
-        </div>
-      ) : (
-        <div className="flex flex-col items-center justify-center gap-3 py-20 text-center">
-          <Users className="w-14 h-14 text-text-light/50" />
-          <p className="text-lg font-semibold">راننده‌ای یافت نشد</p>
-          <p className="text-sm text-text-light">
-            دسته‌بندی دیگری را انتخاب کنید.
-          </p>
-        </div>
-      )}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        {filtered.map((d) => (
+          <DriverCard key={d.id} driver={d} />
+        ))}
+      </div>
 
-      {showRegister && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
-          onClick={() => setShowRegister(false)}
-        >
-          <div
-            className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto bg-card rounded-2xl shadow-xl p-6"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              type="button"
-              onClick={() => setShowRegister(false)}
-              aria-label="بستن"
-              className="absolute top-3 left-3 w-8 h-8 rounded-full bg-bg text-text-light hover:text-danger flex items-center justify-center transition"
-            >
-              <X className="w-4 h-4" />
-            </button>
-            <RegisterForm type="driver" />
-          </div>
+      {filtered.length === 0 && (
+        <div className="text-center py-12">
+          <Car size={40} className="text-gray-300 mx-auto mb-2" />
+          <p className="text-sm font-bold text-gray-500">راننده‌ای یافت نشد</p>
         </div>
       )}
     </div>

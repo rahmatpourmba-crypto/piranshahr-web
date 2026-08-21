@@ -7,9 +7,9 @@
   --color-secondary-dark: #059669;
   --color-warning: #F59E0B;
   --color-danger: #EF4444;
-  --color-bg: #F8FAFC;
+  --color-bg: #F1F5F9;
   --color-card: #FFFFFF;
-  --color-text: #1E293B;
+  --color-text: #0F172A;
   --color-text-light: #64748B;
   --color-border: #E2E8F0;
   --font-family-vazir: 'Vazirmatn', system-ui, sans-serif;
@@ -26,10 +26,19 @@ body {
   background-color: var(--color-bg);
   color: var(--color-text);
   direction: rtl;
+  -webkit-font-smoothing: antialiased;
 }
 
 #root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
 }

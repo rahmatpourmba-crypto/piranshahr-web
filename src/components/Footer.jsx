@@ -22,58 +22,56 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-slate-800 text-white mt-auto">
-      <div className="max-w-7xl mx-auto px-4 py-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer className="bg-gray-900 text-white mt-auto">
+      <div className="max-w-6xl mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <div>
-            <h3 className="text-lg font-bold mb-3">🏠 بازارچه محلی پیرانشهر</h3>
-            <p className="text-sm text-gray-400 mb-4">
+            <h3 className="font-extrabold text-sm mb-3">🏠 بازارچه محلی پیرانشهر</h3>
+            <p className="text-xs text-gray-400 leading-relaxed mb-3">
               بازارچه آنلاین آگهی‌های محلی پیرانشهر. فروش، معاوضه، استخدام، حمل و نقل و خدمات.
             </p>
-            <div className="bg-slate-700 rounded-xl p-3 text-sm">
-              <p className="text-gray-300 mb-1">💳 شماره کارت:</p>
-              <div className="flex items-center gap-2">
-                <span className="font-mono font-bold" dir="ltr">{cardNumber}</span>
-                <button onClick={handleCopy} className="text-blue-400 hover:text-blue-300">
-                  {copied ? <Check size={14} /> : <Copy size={14} />}
+            <div className="bg-gray-800 rounded-lg p-3">
+              <p className="text-[11px] text-gray-500 mb-1">💳 شماره کارت:</p>
+              <div className="flex items-center gap-1.5">
+                <span className="font-mono text-sm font-bold" dir="ltr">{cardNumber}</span>
+                <button onClick={handleCopy} className="text-blue-400 hover:text-blue-300 p-0.5">
+                  {copied ? <Check size={12} /> : <Copy size={12} />}
                 </button>
               </div>
-              <p className="text-gray-400 text-xs mt-1">عبدالباسط رحمت پور | بانک صادرات</p>
+              <p className="text-[10px] text-gray-500 mt-1">عبدالباسط رحمت پور | بانک صادرات</p>
             </div>
           </div>
 
           <div>
-            <h4 className="font-bold mb-3">دسترسی سریع</h4>
-            <ul className="space-y-2">
+            <h4 className="font-bold text-sm mb-3">دسترسی سریع</h4>
+            <div className="grid grid-cols-2 gap-1">
               {navLinks.map((link) => (
-                <li key={link.to}>
-                  <Link to={link.to} className="text-sm text-gray-400 hover:text-white transition-colors">
-                    {link.label}
-                  </Link>
-                </li>
+                <Link key={link.to} to={link.to} className="text-xs text-gray-400 hover:text-white py-1 transition-colors">
+                  {link.label}
+                </Link>
               ))}
-            </ul>
+            </div>
           </div>
 
           <div>
-            <h4 className="font-bold mb-3">تماس با ما</h4>
+            <h4 className="font-bold text-sm mb-3">تماس و ثبت آگهی</h4>
             <a
               href="https://t.me/Superapoiranshar_bot"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-blue-500 transition-colors mb-3"
+              className="flex items-center justify-center gap-2 bg-blue-600 text-white px-4 py-2.5 rounded-xl text-xs font-bold hover:bg-blue-500 transition-colors mb-3"
             >
-              <Send size={16} />
+              <Send size={14} />
               ربات تلگرام
             </a>
-            <p className="text-xs text-gray-500">
+            <p className="text-[10px] text-gray-500 leading-relaxed">
               سلب مسئولیت: این سایت صرفاً جهت اطلاع‌رسانی است و مسئولیت معاملات بر عهده طرفین می‌باشد.
             </p>
           </div>
         </div>
 
-        <div className="border-t border-slate-700 mt-8 pt-4 text-center text-xs text-gray-500">
-          © ۱۴۰۵ بازارچه محلی پیرانشهر. تمامی حقوق محفوظ است.
+        <div className="border-t border-gray-800 mt-6 pt-4 text-center text-[10px] text-gray-600">
+          © ۱۴۰۵ بازارچه محلی پیرانشهر
         </div>
       </div>
     </footer>

@@ -16,53 +16,59 @@ export default function Header() {
   const location = useLocation()
 
   return (
-    <header className="sticky top-0 z-50 bg-gradient-to-l from-blue-600 to-blue-800 text-white shadow-lg">
-      <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-        <Link to="/" className="text-xl font-bold flex items-center gap-2">
-          <span className="text-2xl">🏠</span>
-          <span>بازارچه محلی پیرانشهر</span>
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+      <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+        <Link to="/" className="flex items-center gap-2">
+          <span className="w-9 h-9 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center text-white text-lg shadow-sm">🏠</span>
+          <span className="font-extrabold text-base text-gray-900 hidden sm:block">بازارچه پیرانشهر</span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-1">
-          {navLinks.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                location.pathname === link.to
-                  ? 'bg-white/20 text-white'
-                  : 'text-white/80 hover:bg-white/10 hover:text-white'
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
+        <nav className="hidden md:flex items-center gap-0.5">
+          {navLinks.map((link) => {
+            const active = location.pathname === link.to
+            return (
+              <Link
+                key={link.to}
+                to={link.to}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
+                  active
+                    ? 'bg-blue-600 text-white shadow-sm shadow-blue-200'
+                    : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                }`}
+              >
+                <link.icon size={15} />
+                {link.label}
+              </Link>
+            )
+          })}
         </nav>
 
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden p-2 rounded-lg hover:bg-white/10"
+          className="md:hidden p-2 rounded-lg hover:bg-gray-100 text-gray-600"
         >
-          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+          {mobileOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
 
       {mobileOpen && (
-        <nav className="md:hidden border-t border-white/20 px-4 pb-3">
-          {navLinks.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              onClick={() => setMobileOpen(false)}
-              className={`block py-2 px-3 rounded-lg text-sm ${
-                location.pathname === link.to
-                  ? 'bg-white/20 text-white'
-                  : 'text-white/80 hover:bg-white/10'
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
+        <nav className="md:hidden bg-white border-t border-gray-100 px-3 py-2 shadow-lg">
+          {navLinks.map((link) => {
+            const active = location.pathname === link.to
+            return (
+              <Link
+                key={link.to}
+                to={link.to}
+                onClick={() => setMobileOpen(false)}
+                className={`flex items-center gap-2 py-2.5 px-3 rounded-lg text-sm font-medium ${
+                  active ? 'bg-blue-50 text-blue-700' : 'text-gray-600 hover:bg-gray-50'
+                }`}
+              >
+                <link.icon size={16} />
+                {link.label}
+              </Link>
+            )
+          })}
         </nav>
       )}
     </header>

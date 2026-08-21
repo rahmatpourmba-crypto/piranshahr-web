@@ -3,9 +3,9 @@ import { MapPin, Navigation, Car } from 'lucide-react'
 import drivers from '../data/drivers.json'
 
 const vehicleTypes = [
-  { value: 'پراید', price: 5000, label: 'پراید' },
-  { value: 'پژو', price: 7000, label: 'پژو' },
-  { value: 'ون', price: 10000, label: 'ون' },
+  { value: 'پراید', price: 5000, label: 'پراید', icon: '🚗' },
+  { value: 'پژو', price: 7000, label: 'پژو', icon: '🚙' },
+  { value: 'ون', price: 10000, label: 'ون', icon: '🚐' },
 ]
 
 const areas = [
@@ -32,94 +32,73 @@ export default function TaxiForm() {
   }
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-      <h3 className="text-lg font-bold text-gray-800 mb-4">درخواست تاکسی</h3>
+    <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
+      <h3 className="font-bold text-sm text-gray-900 mb-3">درخواست تاکسی</h3>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-3">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">مبدأ</label>
+          <label className="block text-xs font-medium text-gray-600 mb-1">مبدأ</label>
           <div className="relative">
-            <MapPin size={18} className="absolute right-3 top-3 text-gray-400" />
-            <select
-              value={origin}
-              onChange={(e) => setOrigin(e.target.value)}
-              className="w-full border border-gray-200 rounded-xl px-4 py-2.5 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none"
-              required
-            >
+            <MapPin size={15} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
+            <select value={origin} onChange={(e) => setOrigin(e.target.value)}
+              className="w-full border border-gray-200 rounded-lg px-3 py-2 pr-9 text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 appearance-none" required>
               <option value="">انتخاب کنید...</option>
-              {areas.map((a) => (
-                <option key={a} value={a}>{a}</option>
-              ))}
+              {areas.map((a) => <option key={a} value={a}>{a}</option>)}
             </select>
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">مقصد</label>
+          <label className="block text-xs font-medium text-gray-600 mb-1">مقصد</label>
           <div className="relative">
-            <Navigation size={18} className="absolute right-3 top-3 text-gray-400" />
-            <select
-              value={destination}
-              onChange={(e) => setDestination(e.target.value)}
-              className="w-full border border-gray-200 rounded-xl px-4 py-2.5 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none"
-              required
-            >
+            <Navigation size={15} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
+            <select value={destination} onChange={(e) => setDestination(e.target.value)}
+              className="w-full border border-gray-200 rounded-lg px-3 py-2 pr-9 text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 appearance-none" required>
               <option value="">انتخاب کنید...</option>
-              {areas.map((a) => (
-                <option key={a} value={a}>{a}</option>
-              ))}
+              {areas.map((a) => <option key={a} value={a}>{a}</option>)}
             </select>
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">نوع خودرو</label>
-          <div className="grid grid-cols-3 gap-2">
+          <label className="block text-xs font-medium text-gray-600 mb-1">نوع خودرو</label>
+          <div className="grid grid-cols-3 gap-1.5">
             {vehicleTypes.map((v) => (
-              <button
-                key={v.value}
-                type="button"
-                onClick={() => setVehicleType(v.value)}
-                className={`border rounded-xl py-2 text-sm font-medium transition-colors ${
-                  vehicleType === v.value
-                    ? 'border-blue-500 bg-blue-50 text-blue-700'
-                    : 'border-gray-200 text-gray-600 hover:border-gray-300'
-                }`}
-              >
-                {v.label}
-                <span className="block text-xs text-gray-400 mt-0.5">{v.price.toLocaleString()} ت</span>
+              <button key={v.value} type="button" onClick={() => setVehicleType(v.value)}
+                className={`border rounded-lg py-2 text-center transition-all ${
+                  vehicleType === v.value ? 'border-blue-400 bg-blue-50 text-blue-700' : 'border-gray-200 text-gray-600 hover:border-gray-300'
+                }`}>
+                <span className="text-lg">{v.icon}</span>
+                <span className="block text-[11px] font-medium">{v.label}</span>
+                <span className="block text-[10px] text-gray-400">{v.price.toLocaleString()} ت</span>
               </button>
             ))}
           </div>
         </div>
 
-        <div className="bg-blue-50 rounded-xl p-3 text-center">
-          <span className="text-sm text-gray-600">قیمت تقریبی: </span>
-          <span className="text-lg font-bold text-blue-700">{estimatedPrice.toLocaleString()} تومان</span>
+        <div className="bg-blue-50 rounded-lg py-2 px-3 text-center border border-blue-100">
+          <span className="text-xs text-gray-500">قیمت تقریبی: </span>
+          <span className="text-sm font-extrabold text-blue-700">{estimatedPrice.toLocaleString()} تومان</span>
         </div>
 
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transition-colors"
-        >
+        <button type="submit"
+          className="w-full bg-blue-600 text-white py-2.5 rounded-lg font-bold text-sm hover:bg-blue-700 active:scale-[0.98] transition-all">
           🚕 درخواست تاکسی
         </button>
       </form>
 
       {activeDrivers.length > 0 && (
-        <div className="mt-6">
-          <h4 className="text-sm font-bold text-gray-700 mb-2">رانندگان فعال نزدیک ({activeDrivers.length})</h4>
-          <div className="space-y-2">
+        <div className="mt-4 pt-3 border-t border-gray-100">
+          <p className="text-xs font-medium text-gray-500 mb-2">رانندگان فعال ({activeDrivers.length})</p>
+          <div className="space-y-1.5">
             {activeDrivers.slice(0, 3).map((d) => (
-              <div key={d.id} className="flex items-center justify-between bg-gray-50 rounded-xl p-3">
+              <div key={d.id} className="flex items-center justify-between bg-gray-50 rounded-lg px-3 py-2">
                 <div className="flex items-center gap-2">
-                  <Car size={16} className="text-blue-600" />
-                  <span className="text-sm font-medium">{d.name}</span>
-                  <span className="text-xs text-gray-400">{d.vehicleType}</span>
+                  <Car size={14} className="text-blue-600" />
+                  <span className="text-xs font-medium text-gray-800">{d.name}</span>
+                  <span className="text-[10px] text-gray-400">{d.vehicleType}</span>
                 </div>
-                <a href={`tel:${d.phone}`} className="text-green-600 text-sm font-medium">
-                  تماس
-                </a>
+                <a href={`tel:${d.phone}`} className="text-emerald-600 text-xs font-medium hover:underline">تماس</a>
               </div>
             ))}
           </div>
