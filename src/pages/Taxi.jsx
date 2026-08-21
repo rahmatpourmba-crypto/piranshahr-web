@@ -1,53 +1,43 @@
 import { useState } from 'react'
-import { Zap, ShieldCheck, Banknote, CarFront } from 'lucide-react'
-import TaxiForm from '../components/TaxiForm'
+import { Phone, Star, MapPin } from 'lucide-react'
+import drivers from '../data/drivers.json'
 import DriverCard from '../components/DriverCard'
-import driversData from '../data/drivers.json'
 import PaymentModal from '../components/PaymentModal'
 
-const features = [
-  { icon: Zap, title: 'سریع', desc: 'نزدیک‌ترین راننده در چند دقیقه' },
-  { icon: ShieldCheck, title: 'امن', desc: 'رانندگان مجوزدار' },
-  { icon: Banknote, title: 'ارزان', desc: 'تعرفه شفاف' },
+const taxiFeatures = [
+  { icon: '🗺️', title: 'مسیرهای مشخص', desc: 'مسیرهای پرتقاضا و پرتردد' },
+  { icon: '⏱️', title: 'سرعت بالا', desc: 'تحویل سریع بار در مقصد' },
+  { icon: '🛡️', title: 'امنیت کامل', desc: 'پوشش بیمه و تضمین سلامت بار' },
+  { icon: '💰', title: 'قیمت مناسب', desc: 'نرخ‌های رقابتی و منصفانه' },
 ]
 
 export default function Taxi() {
-  const [selectedDriver, setSelectedDriver] = useState(null)
-  const activeDrivers = driversData.filter((d) => d.active && (d.serviceType === 'taxi' || d.serviceType === 'both'))
-
-  const handleReveal = (driver) => {
-    setSelectedDriver({ title: driver.name, phone: driver.phone, city: 'پیرانشهر' })
-  }
+  const [selected, setSelected] = useState(null)
+  const taxiDrivers = drivers.filter(d => d.serviceType === 'taxi' || d.serviceType === 'both')
 
   return (
-    <div className="max-w-6xl mx-auto px-5 py-6 space-y-8">
-      <div>
-        <h1 className="font-extrabold text-xl text-gray-900 flex items-center gap-3 tracking-tight">
-          <CarFront size={22} className="text-gray-900" /> تاکسی پیرانشهر
-        </h1>
-        <p className="text-[13px] text-gray-400 mt-1 font-medium">{activeDrivers.length} راننده فعال</p>
-      </div>
-      <TaxiForm />
-      <div className="grid grid-cols-3 gap-3">
-        {features.map((f) => (
-          <div key={f.title} className="bg-white rounded-[18px] border border-gray-100/80 p-4 text-center hover:shadow-lg hover:border-gray-200 transition-all duration-300">
-            <div className="w-11 h-11 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-3 border border-gray-100">
-              <f.icon size={18} className="text-gray-700" />
-            </div>
-            <h3 className="font-bold text-[13px] text-gray-900 mb-1">{f.title}</h3>
-            <p className="text-[11px] text-gray-400">{f.desc}</p>
+    <div className="container py-8">
+      <h1 className="font-bold text-[20px] text-gray-900 mb-6">تاکسی بار</h1>
+
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10">
+        {taxiFeatures.map((f, i) => (
+          <div key={i} className="bg-white rounded-xl p-4 text-center">
+            <span className="text-2xl block mb-2">{f.icon}</span>
+            <h3 className="font-semibold text-gray-900 text-[13px] mb-1">{f.title}</h3>
+            <p className="text-[12px] text-gray-400 leading-[1.8]">{f.desc}</p>
           </div>
         ))}
       </div>
-      {activeDrivers.length > 0 && (
-        <div>
-          <h2 className="font-bold text-[15px] text-gray-900 mb-4 tracking-tight">رانندگان فعال</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {activeDrivers.map((d) => <DriverCard key={d.id} driver={d} onReveal={handleReveal} />)}
-          </div>
+
+      <h2 className="font-bold text-[16px] text-gray-900 mb-4">رانندگان تاکسی</h2>
+      {taxiDrivers.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {taxiDrivers.map(d => <DriverCard key={d.id} driver={d} onReveal={driver => setSelected({ title: driver.name, phone: driver.phone, city: 'پیرانشهر' })} />)}
         </div>
+      ) : (
+        <div className="text-center py-24"><Phone size={32} className="text-gray-300 mx-auto mb-3" /><p className="text-gray-400 text-[14px]">راننده‌ای ثبت‌نام نکرده</p></div>
       )}
-      <PaymentModal ad={selectedDriver} isOpen={Boolean(selectedDriver)} onClose={() => setSelectedDriver(null)} />
+      <PaymentModal ad={selected} isOpen={Boolean(selected)} onClose={() => setSelected(null)} />
     </div>
   )
 }
