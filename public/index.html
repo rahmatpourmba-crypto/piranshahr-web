@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>پیرانشهرمارکت | آگهی‌های محلی</title>
+  <meta name="description" content="بازار آنلاین محلی پیرانشهر — خرید و فروش، غذا، نوبت خالی، کولبری و خدمات محلی">
+  <meta name="theme-color" content="#A13D4C">
+  <meta property="og:title" content="پیرانشهرمارکت">
+  <meta property="og:description" content="بازار آنلاین محلی پیرانشهر">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #A13D4C;
+      --primary-dark: #8B2635;
+      --primary-light: #FDF2F3;
+      --text: #1a1a1a;
+      --text-secondary: #666;
+      --bg: #f5f5f6;
+      --white: #ffffff;
+      --border: #e5e5e5;
+      --success: #0d9488;
+      --shadow: 0 2px 12px rgba(0,0,0,0.06);
+      --radius: 14px;
+      --special: #f59e0b;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Vazirmatn, Tahoma, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+
+    header { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 8px rgba(0,0,0,0.04); backdrop-filter: blur(12px); background: rgba(255,255,255,0.95); }
+    .header-inner { max-width: 1200px; margin: 0 auto; padding: 12px 16px; display: flex; align-items: center; gap: 12px; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; flex-shrink: 0; }
+    .logo-mark { width: 44px; height: 44px; background: linear-gradient(135deg, #A13D4C, #c45a6a); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 13px; box-shadow: 0 4px 12px rgba(161,61,76,0.28); }
+    .logo-text strong { font-size: 16px; font-weight: 800; display: block; }
+    .logo-text span { font-size: 11px; color: var(--text-secondary); }
+    .search-box { flex: 1; max-width: 380px; position: relative; }
+    .search-box input { width: 100%; padding: 10px 42px 10px 14px; border: 1px solid var(--border); border-radius: 50px; font-family: inherit; font-size: 13.5px; background: var(--bg); outline: none; }
+    .search-box input:focus { border-color: var(--primary); background: var(--white); }
+    .search-box button { position: absolute; left: 4px; top: 50%; transform: translateY(-50%); background: var(--primary); border: none; width: 32px; height: 32px; border-radius: 50%; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .btn { border: none; border-radius: 50px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 5px; padding: 10px 16px; transition: 0.2s; white-space: nowrap; }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-ghost { background: var(--bg); border: 1px solid var(--border); color: var(--text); }
+    .btn-ghost:hover { border-color: var(--primary); color: var(--primary); }
+    .btn-icon { width: 40px; height: 40px; padding: 0; justify-content: center; border-radius: 50%; background: var(--bg); border: 1px solid var(--border); font-size: 18px; cursor: pointer; }
+
+    .location-bar { background: var(--white); border-bottom: 1px solid var(--border); padding: 10px 16px; }
+    .location-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .location-inner label { font-size: 13px; font-weight: 600; color: var(--text-secondary); }
+    .location-inner select { padding: 7px 12px; border: 1px solid var(--border); border-radius: 10px; font-family: inherit; font-size: 13px; background: var(--bg); outline: none; min-width: 130px; cursor: pointer; }
+    .current-city { margin-right: auto; background: var(--primary-light); color: var(--primary); padding: 5px 12px; border-radius: 20px; font-size: 12.5px; font-weight: 600; }
+
+    .hero { text-align: center; padding: 28px 16px 12px; max-width: 700px; margin: 0 auto; }
+    .hero h1 { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+    .hero p { color: var(--text-secondary); font-size: 14px; }
+
+    .special-section { max-width: 1200px; margin: 0 auto 20px; padding: 0 16px; }
+    .special-title { font-size: 14px; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+    .special-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+    .special-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 12px; padding: 14px 12px; text-align: center; cursor: pointer; transition: 0.2s; }
+    .special-card:hover { border-color: var(--special); transform: translateY(-2px); box-shadow: var(--shadow); }
+    .special-card .icon { font-size: 28px; margin-bottom: 6px; }
+    .special-card .name { font-size: 12.5px; font-weight: 600; }
+    .special-card .desc { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+
+    .cat-wrapper { max-width: 1200px; margin: 0 auto 20px; padding: 0 16px; position: relative; display: flex; align-items: center; gap: 8px; }
+    .cat-arrow { flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--border); background: var(--white); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; box-shadow: var(--shadow); }
+    .cat-arrow:hover { border-color: var(--primary); color: var(--primary); }
+    .categories { flex: 1; display: flex; gap: 7px; overflow-x: auto; scroll-behavior: smooth; scrollbar-width: none; padding: 4px 0; }
+    .categories::-webkit-scrollbar { display: none; }
+    .cat-btn { flex-shrink: 0; padding: 8px 14px; border-radius: 50px; border: 1px solid var(--border); background: var(--white); font-family: inherit; font-size: 12.5px; cursor: pointer; transition: 0.2s; white-space: nowrap; }
+    .cat-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .cat-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+    .cat-btn.special-tag { border-color: #fbbf24; background: #fffbeb; color: #b45309; }
+    .cat-btn.special-tag.active { background: #f59e0b; color: white; border-color: #f59e0b; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 16px 50px; }
+    .ads-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+    .ad-card { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); cursor: pointer; transition: 0.2s; border: 1px solid transparent; }
+    .ad-card:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(0,0,0,0.1); border-color: var(--border); }
+    .ad-image { height: 150px; background: linear-gradient(135deg, #f0f0f0, #e8e8e8); display: flex; align-items: center; justify-content: center; position: relative; }
+    .ad-image .placeholder { font-size: 38px; opacity: 0.28; }
+    .ad-badge { position: absolute; top: 8px; right: 8px; background: var(--white); padding: 3px 9px; border-radius: 20px; font-size: 11px; font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.08); }
+    .ad-badge.special { background: #fef3c7; color: #b45309; }
+    .ad-body { padding: 12px 14px 14px; }
+    .ad-title { font-size: 13.5px; font-weight: 600; margin-bottom: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.45; }
+    .ad-meta { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--text-secondary); }
+    .ad-price { font-weight: 700; color: var(--primary); font-size: 13px; }
+    .ad-city { font-size: 11px; color: #999; margin-top: 5px; }
+
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 200; display: none; align-items: center; justify-content: center; padding: 16px; overflow-y: auto; }
+    .modal-overlay.active { display: flex; }
+    .modal { background: var(--white); border-radius: 16px; max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; animation: slideUp 0.28s ease; }
+    .modal.wide { max-width: 560px; }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .modal-close { position: absolute; top: 12px; left: 12px; width: 32px; height: 32px; border-radius: 50%; border: none; background: var(--bg); font-size: 18px; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; }
+    .modal-image { height: 200px; background: linear-gradient(135deg, #f0f0f0, #e8e8e8); display: flex; align-items: center; justify-content: center; font-size: 52px; opacity: 0.3; }
+    .modal-content { padding: 18px; }
+    .modal-badge { display: inline-block; background: var(--primary-light); color: var(--primary); padding: 3px 10px; border-radius: 20px; font-size: 11.5px; font-weight: 600; margin-bottom: 8px; }
+    .modal-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+    .modal-price { font-size: 19px; font-weight: 800; color: var(--primary); margin-bottom: 10px; }
+    .modal-desc { color: var(--text-secondary); font-size: 13.5px; margin-bottom: 16px; line-height: 1.7; }
+    .contact-box { background: var(--bg); border-radius: 12px; padding: 14px; text-align: center; }
+    .phone-hidden { font-size: 19px; font-weight: 700; letter-spacing: 2px; color: var(--text-secondary); margin-bottom: 10px; filter: blur(5px); user-select: none; }
+    .phone-visible { font-size: 19px; font-weight: 700; color: var(--success); margin-bottom: 10px; direction: ltr; }
+    .btn-pay { background: var(--primary); color: white; border: none; width: 100%; padding: 12px; border-radius: 11px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+    .btn-pay:hover { background: var(--primary-dark); }
+    .btn-pay:disabled { background: var(--success); cursor: default; }
+    .pay-note { font-size: 11.5px; color: var(--text-secondary); margin-top: 7px; }
+
+    .form-group { margin-bottom: 13px; }
+    .form-group label { display: block; font-size: 12.5px; font-weight: 600; margin-bottom: 4px; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 9px; font-family: inherit; font-size: 13.5px; outline: none; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary); }
+    .form-group textarea { resize: vertical; min-height: 75px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .profile-header { text-align: center; padding: 24px 18px 10px; }
+    .profile-avatar { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, #A13D4C, #c45a6a); color: white; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; margin: 0 auto 12px; }
+    .profile-name { font-size: 18px; font-weight: 700; }
+    .profile-email { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+    .profile-stats { display: flex; justify-content: center; gap: 24px; margin: 16px 0; }
+    .profile-stat { text-align: center; }
+    .profile-stat .num { font-size: 18px; font-weight: 800; color: var(--primary); }
+    .profile-stat .lbl { font-size: 11.5px; color: var(--text-secondary); }
+    .profile-tabs { display: flex; border-bottom: 1px solid var(--border); margin: 0 18px; }
+    .profile-tab { flex: 1; text-align: center; padding: 10px; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-secondary); border-bottom: 2px solid transparent; }
+    .profile-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+    .profile-ads { padding: 14px 18px 20px; }
+    .profile-ad-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); align-items: center; }
+    .profile-ad-item:last-child { border-bottom: none; }
+    .profile-ad-emoji { width: 48px; height: 48px; background: var(--bg); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+    .profile-ad-info { flex: 1; min-width: 0; }
+    .profile-ad-info .t { font-size: 13.5px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .profile-ad-info .m { font-size: 12px; color: var(--text-secondary); }
+    .auth-box { padding: 20px 18px; }
+    .auth-toggle { text-align: center; margin-top: 12px; font-size: 13px; color: var(--text-secondary); }
+    .auth-toggle span { color: var(--primary); cursor: pointer; font-weight: 600; }
+
+    .empty { text-align: center; padding: 40px 16px; color: var(--text-secondary); grid-column: 1 / -1; }
+
+    .skeleton { background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 12px; }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+    footer { background: var(--white); border-top: 1px solid var(--border); padding: 24px 16px; text-align: center; font-size: 12.5px; color: var(--text-secondary); }
+    .footer-logo { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 14px; }
+    .contact-box-footer { background: var(--bg); border-radius: 12px; padding: 14px 18px; margin: 0 auto 14px; max-width: 340px; text-align: right; }
+    .contact-box-footer a { display: flex; align-items: center; gap: 7px; text-decoration: none; margin-top: 7px; font-size: 13px; }
+    .contact-box-footer a.email { color: var(--primary); }
+    .contact-box-footer a.whatsapp { color: #25D366; }
+
+    @media (max-width: 700px) {
+      .logo-text span { display: none; }
+      .logo-mark { width: 38px; height: 38px; font-size: 11px; }
+      .btn span.hide-m { display: none; }
+      .hero h1 { font-size: 18px; }
+      .ads-grid { grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 10px; }
+      .ad-image { height: 120px; }
+      .special-grid { grid-template-columns: repeat(3, 1fr); }
+      .form-row { grid-template-columns: 1fr; }
+      .current-city { width: 100%; text-align: center; margin-right: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo" onclick="showHome(); return false;">
+      <div class="logo-mark">پ</div>
+      <div class="logo-text">
+        <strong>پیرانشهرمارکت</strong>
+        <span>بازار آنلاین محلی</span>
+      </div>
+    </a>
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="جستجو در آگهی‌ها..." oninput="filterAds()">
+      <button onclick="filterAds()"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-ghost" onclick="document.getElementById('provinceSelect').focus()">📍 <span class="hide-m" id="locBtnText">شهر</span></button>
+      <button class="btn btn-primary" onclick="openPostModal()">+ <span class="hide-m">ثبت آگهی</span></button>
+      <button class="btn-icon" onclick="openProfile()" title="پروفایل" id="profileBtn">👤</button>
+    </div>
+  </div>
+</header>
+
+<div class="location-bar">
+  <div class="location-inner">
+    <label>استان:</label>
+    <select id="provinceSelect" onchange="onProvinceChange()">
+    </select>
+    <label>شهر:</label>
+    <select id="citySelect" onchange="onCityChange()">
+    </select>
+    <div class="current-city" id="currentCityLabel">پیرانشهر — آذربایجان غربی</div>
+  </div>
+</div>
+
+<section class="hero">
+  <h1>آگهی‌های محلی، یک‌جا و ساده</h1>
+  <p>خرید و فروش، غذا، نوبت خالی، کولبری و خدمات محلی را پیدا کنید.</p>
+</section>
+
+<div class="special-section">
+  <div class="special-title">⭐ دسته‌های ویژه پیرانشهرمارکت</div>
+  <div class="special-grid" id="specialGrid"></div>
+</div>
+
+<div class="cat-wrapper">
+  <button class="cat-arrow" onclick="scrollCats(-1)">‹</button>
+  <div class="categories" id="categories"></div>
+  <button class="cat-arrow" onclick="scrollCats(1)">›</button>
+</div>
+
+<div class="container">
+  <div class="ads-grid" id="adsGrid"></div>
+</div>
+
+<div class="modal-overlay" id="detailModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('detailModal')">×</button>
+    <div class="modal-image" id="modalImage">📦</div>
+    <div class="modal-content">
+      <span class="modal-badge" id="modalBadge"></span>
+      <h2 class="modal-title" id="modalTitle"></h2>
+      <div class="modal-price" id="modalPrice"></div>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="contact-box">
+        <div class="phone-hidden" id="phoneDisplay">۰۹۱۲ ••• ••••</div>
+        <button class="btn-pay" id="payBtn" onclick="openPayModal()">مشاهده شماره تماس — ۲۰,۰۰۰ تومان</button>
+        <p class="pay-note">پرداخت امن از طریق درگاه بله‌پی<br><span style="font-size:11px;opacity:0.85">پیرانشهرمارکت مسئولیتی در قبال معامله ندارد</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="payModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('payModal')">×</button>
+    <div class="profile-header">
+      <div class="profile-avatar" style="background:linear-gradient(135deg,#00a884,#00c9a7);width:48px;height:48px;font-size:16px;border-radius:12px;margin:0 auto 10px;">بله</div>
+      <div class="profile-name" style="font-size:14px;color:var(--text-secondary)">پرداخت از طریق بله‌پی</div>
+      <div class="profile-name" style="font-size:24px;margin:5px 0">۲۰,۰۰۰ تومان</div>
+      <div class="profile-email">مشاهده شماره تماس آگهی‌دهنده</div>
+    </div>
+    <div class="profile-ads">
+      <label style="display:flex;align-items:center;gap:10px;padding:12px;border:1.5px solid var(--primary);border-radius:11px;margin-bottom:7px;background:var(--primary-light);cursor:pointer">
+        <input type="radio" name="payMethod" checked>
+        <div><strong>کیف پول بله</strong><div style="font-size:11.5px;color:#666">پرداخت آنی</div></div>
+      </label>
+      <label style="display:flex;align-items:center;gap:10px;padding:12px;border:1.5px solid var(--border);border-radius:11px;margin-bottom:7px;cursor:pointer">
+        <input type="radio" name="payMethod">
+        <div><strong>کارت بانکی</strong><div style="font-size:11.5px;color:#666">کارت‌های عضو شتاب</div></div>
+      </label>
+      <button class="btn-pay" style="background:#00a884;margin-top:5px" onclick="confirmPayment()">تأیید و پرداخت</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="postModal">
+  <div class="modal wide">
+    <button class="modal-close" onclick="closeModal('postModal')">×</button>
+    <div class="modal-content" style="padding-top:36px">
+      <h2 style="margin-bottom:16px;font-size:16.5px">ثبت آگهی رایگان در پیرانشهرمارکت</h2>
+      <div class="form-group">
+        <label>عنوان آگهی *</label>
+        <input type="text" id="postTitle" placeholder="مثلاً: مبل راحتی سه نفره">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>دسته‌بندی *</label>
+          <select id="postCategory"></select>
+        </div>
+        <div class="form-group">
+          <label>قیمت (تومان)</label>
+          <input type="number" id="postPrice" placeholder="خالی = توافقی">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>استان *</label>
+          <select id="postProvince" onchange="onPostProvinceChange()"></select>
+        </div>
+        <div class="form-group">
+          <label>شهر *</label>
+          <select id="postCity"></select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>توضیحات *</label>
+        <textarea id="postDesc" placeholder="توضیحات کامل آگهی..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>شماره تماس *</label>
+        <input type="tel" id="postPhone" placeholder="0912xxxxxxx">
+      </div>
+      <button class="btn-pay" onclick="submitAd()">ثبت آگهی رایگان</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="profileModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('profileModal')">×</button>
+    <div id="profileContent"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">
+    <div class="logo-mark" style="width:36px;height:36px;font-size:11px;border-radius:9px;">پ</div>
+    <div style="text-align:right;"><strong style="font-size:14px;color:#1a1a1a;">پیرانشهرمارکت</strong><div style="font-size:11.5px;">بازار آنلاین محلی</div></div>
+  </div>
+  <div class="contact-box-footer">
+    <div style="font-weight:700;font-size:13px;">پشتیبانی</div>
+    <a class="whatsapp" href="https://wa.me/989141688217" target="_blank">💬 واتساپ: ۰۹۱۴۱۶۸۸۲۱۷</a>
+  </div>
+  <div style="max-width:640px;margin:0 auto 16px;background:#FDF2F3;border:1px solid #f5e6c8;border-radius:12px;padding:14px 16px;text-align:right;font-size:12px;color:#7a5c2e;line-height:1.8;">
+    <strong style="display:block;margin-bottom:6px;font-size:12.5px;">⚠️ سلب مسئولیت</strong>
+    پیرانشهرمارکت صرفاً یک بستر انتشار آگهی است و هیچ‌گونه مسئولیتی در قبال صحت اطلاعات آگهی‌ها، کیفیت کالا یا خدمات، انجام معامله، پرداخت‌ها و اختلافات بین کاربران ندارد.
+    مسئولیت کامل صحت آگهی و معامله بر عهده آگهی‌دهنده و خریدار است.
+  </div>
+  <div style="font-size:11.5px;color:#888;line-height:1.7;">ثبت آگهی رایگان • مشاهده شماره با ۲۰ هزار تومان<br>© ۱۴۰۵ پیرانشهرمارکت</div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script>
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyDB6p_i6g3K5kB01n1fjiQaH6iA5kjf2Ec",
+  authDomain: "bazar-4b276.firebaseapp.com",
+  projectId: "bazar-4b276",
+  storageBucket: "bazar-4b276.firebasestorage.app",
+  messagingSenderId: "359035121849",
+  appId: "1:359035121849:web:2a48f21210467e89402b68"
+};
+firebase.initializeApp(FIREBASE_CONFIG);
+const db = firebase.firestore();
+const auth = firebase.auth();
+
+const SPECIAL_CATS = ["معاوضه غذا","غذای رستوران","نوبت خالی","کولبری","تاکسی","دام و کشاورزی"];
+const SPECIAL_DESCS = {"معاوضه غذا":"همسایه به همسایه","غذای رستوران":"رستوران و فست‌فود","نوبت خالی":"پزشک، آرایشگاه...","کولبری":"خدمات مرزی","تاکسی":"دربستی و شهری","دام و کشاورزی":"محصولات محلی"};
+const CATEGORY_EMOJI = {"فروش":"🛒","دست دوم":"♻️","معاوضه":"🔄","معاوضه غذا":"🍃","غذای رستوران":"🍛","نوبت خالی":"📅","کولبری":"🎒","تاکسی":"🚕","دام و کشاورزی":"🐑","املاک":"🏠","وسایل نقلیه":"🚗","لوازم خانگی":"🛋️","موبایل و تبلت":"📱","خدمات":"🔧","استخدام":"💼","درخواست کار":"🔨","کارگزاری":"🏢","ترخیص کار":"📦","حمل و نقل":"🚚","رایگان":"🎁","گمشده":"🔍","پیداشده":"✅"};
+const ALL_CATS = Object.keys(CATEGORY_EMOJI);
+const provinces = {
+  "آذربایجان شرقی":["تبریز","مراغه","مرند","میانه","اهر"],"آذربایجان غربی":["ارومیه","خوی","مهاباد","بوکان","میاندوآب","سلماس","پیرانشهر","نقده","ماکو","سردشت","شاهین‌دژ","تکاب","اشنویه"],
+  "اردبیل":["اردبیل","پارس‌آباد","خلخال"],"اصفهان":["اصفهان","کاشان","خمینی‌شهر","نجف‌آباد"],"البرز":["کرج","فردیس","نظرآباد"],
+  "ایلام":["ایلام","دهلران"],"بوشهر":["بوشهر","برازجان","گناوه"],"تهران":["تهران","اسلامشهر","شهریار","قدس","ملارد","پاکدشت","ری","ورامین"],
+  "چهارمحال و بختیاری":["شهرکرد","بروجن"],"خراسان جنوبی":["بیرجند","قائن"],"خراسان رضوی":["مشهد","نیشابور","سبزوار","تربت حیدریه"],
+  "خراسان شمالی":["بجنورد","شیروان"],"خوزستان":["اهواز","دزفول","آبادان","خرمشهر"],"زنجان":["زنجان","ابهر"],
+  "سمنان":["سمنان","شاهرود"],"سیستان و بلوچستان":["زاهدان","زابل","ایرانشهر","چابهار"],"فارس":["شیراز","مرودشت","جهرم","فسا"],
+  "قزوین":["قزوین","تاکستان"],"قم":["قم"],"کردستان":["سنندج","سقز","مریوان","بانه"],"کرمان":["کرمان","سیرجان","رفسنجان"],
+  "کرمانشاه":["کرمانشاه","اسلام‌آباد غرب"],"کهگیلویه و بویراحمد":["یاسوج","دوگنبدان"],"گلستان":["گرگان","گنبد کاووس"],
+  "گیلان":["رشت","بندر انزلی","لاهیجان"],"لرستان":["خرم‌آباد","بروجرد"],"مازندران":["ساری","بابل","آمل","قائم‌شهر"],
+  "مرکزی":["اراک","ساوه"],"هرمزگان":["بندرعباس","میناب","قشم"],"همدان":["همدان","ملایر"],"یزد":["یزد","میبد","اردکان"]
+};
+
+let currentCat = "همه", currentProvince = "آذربایجان غربی", currentCity = "پیرانشهر", currentAdId = null;
+let ads = [];
+let currentUser = null;
+let currentAdUserId = null;
+
+auth.onAuthStateChanged(function(user) {
+  currentUser = user;
+  updateProfileBtn();
+  if (document.getElementById('profileModal').classList.contains('active')) {
+    openProfile();
+  }
+});
+
+function updateProfileBtn() {
+  const btn = document.getElementById('profileBtn');
+  if (currentUser) {
+    const initial = (currentUser.displayName || currentUser.email || 'ک')[0];
+    btn.textContent = initial;
+    btn.style.background = 'var(--primary)';
+    btn.style.color = 'white';
+    btn.style.fontWeight = '700';
+    btn.style.fontSize = '14px';
+  } else {
+    btn.textContent = '👤';
+    btn.style.background = '';
+    btn.style.color = '';
+    btn.style.fontWeight = '';
+    btn.style.fontSize = '';
+  }
+}
+
+function fillProvinceSelect(selectEl, includeAll, selected) {
+  if (!selectEl) return;
+  selectEl.innerHTML = "";
+  if (includeAll) {
+    const opt0 = document.createElement("option");
+    opt0.value = "";
+    opt0.textContent = "همه استان‌ها";
+    selectEl.appendChild(opt0);
+  }
+  const keys = Object.keys(provinces).sort(function(a, b) { return a.localeCompare(b, "fa"); });
+  for (let i = 0; i < keys.length; i++) {
+    const opt = document.createElement("option");
+    opt.value = keys[i];
+    opt.textContent = keys[i];
+    if (keys[i] === selected) opt.selected = true;
+    selectEl.appendChild(opt);
+  }
+}
+
+function fillCitySelect(selectEl, provinceName, includeAll, selected) {
+  if (!selectEl) return;
+  selectEl.innerHTML = "";
+  if (!provinceName) {
+    const opt = document.createElement("option");
+    opt.value = "";
+    opt.textContent = includeAll ? "همه شهرهای استان" : "ابتدا استان را انتخاب کنید";
+    selectEl.appendChild(opt);
+    return;
+  }
+  if (includeAll) {
+    const opt0 = document.createElement("option");
+    opt0.value = "";
+    opt0.textContent = "همه شهرهای استان";
+    selectEl.appendChild(opt0);
+  }
+  const cities = provinces[provinceName] || [];
+  for (let i = 0; i < cities.length; i++) {
+    const opt = document.createElement("option");
+    opt.value = cities[i];
+    opt.textContent = cities[i];
+    if (cities[i] === selected) opt.selected = true;
+    selectEl.appendChild(opt);
+  }
+}
+
+function fillCategorySelect(selectEl) {
+  if (!selectEl) return;
+  selectEl.innerHTML = "";
+  ALL_CATS.forEach(function(cat) {
+    const opt = document.createElement("option");
+    opt.value = cat;
+    opt.textContent = (CATEGORY_EMOJI[cat] || '') + ' ' + cat;
+    selectEl.appendChild(opt);
+  });
+}
+
+function buildSpecialGrid() {
+  const grid = document.getElementById('specialGrid');
+  grid.innerHTML = SPECIAL_CATS.map(function(cat) {
+    return '<div class="special-card" onclick="filterSpecial(\'' + cat + '\')">' +
+      '<div class="icon">' + (CATEGORY_EMOJI[cat] || '') + '</div>' +
+      '<div class="name">' + cat + '</div>' +
+      '<div class="desc">' + (SPECIAL_DESCS[cat] || '') + '</div></div>';
+  }).join('');
+}
+
+function buildCategoryBar() {
+  const bar = document.getElementById('categories');
+  let html = '<button class="cat-btn active" data-cat="همه" onclick="filterCat(this)">همه</button>';
+  SPECIAL_CATS.forEach(function(cat) {
+    html += '<button class="cat-btn special-tag" data-cat="' + cat + '" onclick="filterCat(this)">' + cat + '</button>';
+  });
+  ALL_CATS.filter(function(c) { return !SPECIAL_CATS.includes(c); }).forEach(function(cat) {
+    html += '<button class="cat-btn" data-cat="' + cat + '" onclick="filterCat(this)">' + cat + '</button>';
+  });
+  bar.innerHTML = html;
+}
+
+function onProvinceChange() {
+  var sel = document.getElementById("provinceSelect");
+  var citySel = document.getElementById("citySelect");
+  currentProvince = sel.value || "";
+  currentCity = "";
+  fillCitySelect(citySel, currentProvince, true);
+  updateLocationLabel();
+  loadAds();
+}
+
+function onCityChange() {
+  var citySel = document.getElementById("citySelect");
+  currentCity = citySel.value || "";
+  updateLocationLabel();
+  loadAds();
+}
+
+function updateLocationLabel() {
+  var label = document.getElementById("currentCityLabel");
+  var btn = document.getElementById("locBtnText");
+  if (currentCity) {
+    label.textContent = currentCity + " — " + currentProvince;
+    if (btn) btn.textContent = currentCity;
+  } else if (currentProvince) {
+    label.textContent = "همه شهرهای " + currentProvince;
+    if (btn) btn.textContent = currentProvince;
+  } else {
+    label.textContent = "همه ایران";
+    if (btn) btn.textContent = "شهر";
+  }
+}
+
+function onPostProvinceChange() {
+  var pSel = document.getElementById("postProvince");
+  var citySel = document.getElementById("postCity");
+  fillCitySelect(citySel, pSel.value, false);
+}
+
+function scrollCats(dir) {
+  document.getElementById("categories").scrollBy({ left: dir * -200, behavior: "smooth" });
+}
+
+function filterSpecial(cat) {
+  document.querySelectorAll(".cat-btn").forEach(function(b) { b.classList.remove("active"); });
+  var btn = document.querySelector('.cat-btn[data-cat="' + cat + '"]');
+  if (btn) btn.classList.add("active");
+  currentCat = cat;
+  renderAds();
+}
+
+function filterCat(btn) {
+  document.querySelectorAll(".cat-btn").forEach(function(b) { b.classList.remove("active"); });
+  btn.classList.add("active");
+  currentCat = btn.dataset.cat;
+  renderAds();
+}
+
+function showHome() {
+  currentCat = "همه";
+  document.querySelectorAll(".cat-btn").forEach(function(b) { b.classList.remove("active"); });
+  var allBtn = document.querySelector('.cat-btn[data-cat="همه"]');
+  if (allBtn) allBtn.classList.add("active");
+  document.getElementById("searchInput").value = "";
+  renderAds();
+}
+
+function renderAds() {
+  var q = document.getElementById("searchInput").value.trim().toLowerCase();
+  var filtered = ads.filter(function(a) {
+    if (currentProvince && a.province !== currentProvince) return false;
+    if (currentCity && a.city !== currentCity) return false;
+    if (currentCat !== "همه" && a.category !== currentCat) return false;
+    if (q) {
+      var text = (a.title + ' ' + (a.description || '') + ' ' + a.category).toLowerCase();
+      if (!text.includes(q)) return false;
+    }
+    return true;
+  });
+  var grid = document.getElementById("adsGrid");
+  if (!filtered.length) {
+    grid.innerHTML = '<div class="empty">آگهی‌ای یافت نشد.<br><small>شهر یا دسته دیگری را امتحان کنید.</small></div>';
+    return;
+  }
+  grid.innerHTML = filtered.map(function(ad) {
+    var isSpecial = SPECIAL_CATS.indexOf(ad.category) !== -1;
+    var emoji = CATEGORY_EMOJI[ad.category] || "📌";
+    var priceText = ad.price && ad.price !== "توافقی" ? formatPrice(ad.price) + " تومان" : "توافقی";
+    var timeText = timeAgo(ad.createdAt);
+    var cityText = ad.city ? '📍 ' + ad.city : '';
+    return '<div class="ad-card" onclick="openDetail(\'' + ad.id + '\')">' +
+      '<div class="ad-image"><span class="placeholder">' + emoji + '</span>' +
+      '<span class="ad-badge ' + (isSpecial ? 'special' : '') + '">' + ad.category + '</span></div>' +
+      '<div class="ad-body">' +
+      '<div class="ad-title">' + escHtml(ad.title) + '</div>' +
+      '<div class="ad-meta"><span>' + timeText + '</span><span class="ad-price">' + priceText + '</span></div>' +
+      '<div class="ad-city">' + cityText + '</div>' +
+      '</div></div>';
+  }).join("");
+}
+
+function formatPrice(price) {
+  var n = Number(String(price).replace(/[^\d]/g, ''));
+  if (isNaN(n) || n === 0) return "توافقی";
+  return n.toLocaleString("fa-IR");
+}
+
+function timeAgo(date) {
+  if (!date) return "";
+  var now = Date.now();
+  var ts;
+  if (date && date.seconds) {
+    ts = date.seconds * 1000;
+  } else {
+    ts = new Date(date).getTime();
+  }
+  if (isNaN(ts)) return "";
+  var diff = now - ts;
+  var mins = Math.floor(diff / 60000);
+  if (mins < 1) return "همین الان";
+  if (mins < 60) return mins + " دقیقه پیش";
+  var hrs = Math.floor(mins / 60);
+  if (hrs < 24) return hrs + " ساعت پیش";
+  var days = Math.floor(hrs / 24);
+  return days + " روز پیش";
+}
+
+function escHtml(s) {
+  if (!s) return "";
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+async function loadAds() {
+  try {
+    var query = db.collection("ads").orderBy("createdAt", "desc").limit(200);
+    var snapshot = await query.get();
+    ads = [];
+    snapshot.forEach(function(doc) {
+      ads.push({ id: doc.id, ...doc.data() });
+    });
+    renderAds();
+  } catch (err) {
+    console.error("loadAds error:", err);
+    renderAds();
+  }
+}
+
+function openDetail(id) {
+  var ad = ads.find(function(a) { return a.id === id; });
+  if (!ad) return;
+  currentAdId = id;
+  currentAdUserId = ad.userId;
+  var emoji = CATEGORY_EMOJI[ad.category] || "📦";
+  document.getElementById("modalBadge").textContent = ad.category + " • " + ad.city;
+  document.getElementById("modalTitle").textContent = ad.title;
+  document.getElementById("modalPrice").textContent = (!ad.price || ad.price === "توافقی") ? "قیمت توافقی" : formatPrice(ad.price) + " تومان";
+  document.getElementById("modalDesc").textContent = ad.description || "";
+  document.getElementById("modalImage").textContent = emoji;
+
+  var freeCats = ["رایگان", "گمشده", "پیداشده"];
+  var isFreePhone = freeCats.indexOf(ad.category) !== -1;
+  var phoneEl = document.getElementById("phoneDisplay");
+  var payBtn = document.getElementById("payBtn");
+
+  if (isFreePhone) {
+    phoneEl.className = "phone-visible";
+    phoneEl.textContent = ad.phone || "بدون شماره";
+    payBtn.textContent = "شماره تماس رایگان ✓";
+    payBtn.disabled = true;
+  } else {
+    phoneEl.className = "phone-hidden";
+    phoneEl.textContent = "۰۹۱۲ ••• ••••";
+    payBtn.textContent = "مشاهده شماره تماس — ۲۰,۰۰۰ تومان";
+    payBtn.disabled = false;
+  }
+  document.getElementById("detailModal").classList.add("active");
+}
+
+function openPayModal() {
+  document.getElementById("payModal").classList.add("active");
+}
+
+function confirmPayment() {
+  var phoneEl = document.getElementById("phoneDisplay");
+  var ad = ads.find(function(a) { return a.id === currentAdId; });
+  if (!ad) return;
+  phoneEl.className = "phone-visible";
+  phoneEl.textContent = ad.phone || "بدون شماره";
+  document.getElementById("payBtn").textContent = "شماره تماس نمایش داده شد ✓";
+  document.getElementById("payBtn").disabled = true;
+  closeModal("payModal");
+  alert("✅ پرداخت موفق!\nشماره تماس نمایش داده شد.");
+}
+
+async function submitAd() {
+  var title = document.getElementById("postTitle").value.trim();
+  var category = document.getElementById("postCategory").value;
+  var province = document.getElementById("postProvince").value;
+  var city = document.getElementById("postCity").value;
+  var priceVal = document.getElementById("postPrice").value;
+  var desc = document.getElementById("postDesc").value.trim();
+  var phone = document.getElementById("postPhone").value.trim();
+
+  if (!title || !desc || !phone || !province || !city) {
+    alert("لطفاً فیلدهای ستاره‌دار را پر کنید.");
+    return;
+  }
+  if (!currentUser) {
+    alert("لطفاً ابتدا وارد شوید.");
+    closeModal("postModal");
+    openProfile();
+    return;
+  }
+
+  try {
+    await db.collection("ads").add({
+      title: title,
+      category: category,
+      price: priceVal ? priceVal : "توافقی",
+      description: desc,
+      phone: phone,
+      province: province,
+      city: city,
+      userId: currentUser.uid,
+      userName: currentUser.displayName || currentUser.email,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    closeModal("postModal");
+    ["postTitle", "postPrice", "postDesc", "postPhone"].forEach(function(id) { document.getElementById(id).value = ""; });
+    alert("✅ آگهی شما ثبت شد!");
+    loadAds();
+  } catch (err) {
+    console.error("submitAd error:", err);
+    alert("خطا در ثبت آگهی. دوباره تلاش کنید.");
+  }
+}
+
+function openProfile() {
+  var box = document.getElementById("profileContent");
+  if (currentUser) {
+    var initial = (currentUser.displayName || currentUser.email || "ک")[0].toUpperCase();
+    var email = currentUser.email || "";
+    var name = currentUser.displayName || email.split("@")[0];
+    box.innerHTML =
+      '<div class="profile-header">' +
+        '<div class="profile-avatar">' + escHtml(initial) + '</div>' +
+        '<div class="profile-name">' + escHtml(name) + '</div>' +
+        '<div class="profile-email">' + escHtml(email) + '</div>' +
+      '</div>' +
+      '<div class="profile-ads">' +
+        '<button class="btn-pay" style="background:#666" onclick="logout()">خروج از حساب</button>' +
+      '</div>';
+  } else {
+    box.innerHTML =
+      '<div class="auth-box">' +
+        '<h2 style="font-size:16px;margin-bottom:14px;text-align:center" id="authTitle">ورود به پیرانشهرمارکت</h2>' +
+        '<div class="form-group" id="nameGroup" style="display:none"><label>نام</label><input type="text" id="authName" placeholder="نام شما"></div>' +
+        '<div class="form-group"><label>ایمیل</label><input type="email" id="authEmail" placeholder="email@example.com"></div>' +
+        '<div class="form-group"><label>رمز عبور</label><input type="password" id="authPass" placeholder="حداقل ۶ کاراکتر"></div>' +
+        '<button class="btn-pay" id="authBtn" onclick="doAuth()">ورود</button>' +
+        '<div class="auth-toggle" id="authToggle">حساب ندارید؟ <span onclick="toggleAuth()">ثبت‌نام</span></div>' +
+      '</div>';
+  }
+  document.getElementById("profileModal").classList.add("active");
+}
+
+var isRegister = false;
+function toggleAuth() {
+  isRegister = !isRegister;
+  document.getElementById("authTitle").textContent = isRegister ? "ثبت‌نام در پیرانشهرمارکت" : "ورود به پیرانشهرمارکت";
+  document.getElementById("authBtn").textContent = isRegister ? "ثبت‌نام" : "ورود";
+  document.getElementById("nameGroup").style.display = isRegister ? "block" : "none";
+  document.getElementById("authToggle").innerHTML = isRegister
+    ? 'قبلاً ثبت‌نام کرده‌اید؟ <span onclick="toggleAuth()">ورود</span>'
+    : 'حساب ندارید؟ <span onclick="toggleAuth()">ثبت‌نام</span>';
+}
+
+async function doAuth() {
+  var email = document.getElementById("authEmail").value.trim();
+  var pass = document.getElementById("authPass").value;
+  var name = document.getElementById("authName") ? document.getElementById("authName").value.trim() : "";
+  if (!email || !pass || (isRegister && !name)) { alert("لطفاً همه فیلدها را پر کنید."); return; }
+  if (pass.length < 6) { alert("رمز عبور حداقل ۶ کاراکتر باشد."); return; }
+
+  try {
+    if (isRegister) {
+      var cred = await auth.createUserWithEmailAndPassword(email, pass);
+      await cred.user.updateProfile({ displayName: name });
+      alert("✅ ثبت‌نام موفق!");
+    } else {
+      await auth.signInWithEmailAndPassword(email, pass);
+      alert("✅ ورود موفق!");
+    }
+    closeModal("profileModal");
+  } catch (err) {
+    console.error("auth error:", err);
+    var msg = err.message;
+    if (msg.includes("auth/email-already-in-use")) msg = "این ایمیل قبلاً ثبت شده. وارد شوید.";
+    else if (msg.includes("auth/user-not-found")) msg = "کاربری با این ایمیل یافت نشد.";
+    else if (msg.includes("auth/wrong-password")) msg = "رمز عبور اشتباه است.";
+    else if (msg.includes("auth/invalid-email")) msg = "ایمیل نامعتبر است.";
+    else if (msg.includes("auth/weak-password")) msg = "رمز عبور ضعیف است. حداقل ۶ کاراکتر.";
+    alert("❌ " + msg);
+  }
+}
+
+async function logout() {
+  try {
+    await auth.signOut();
+    closeModal("profileModal");
+    alert("از حساب خارج شدید.");
+  } catch (err) {
+    console.error("logout error:", err);
+  }
+}
+
+function openPostModal() {
+  if (!currentUser) {
+    alert("برای ثبت آگهی ابتدا وارد شوید.");
+    openProfile();
+    return;
+  }
+  var postProv = document.getElementById("postProvince");
+  var postCity = document.getElementById("postCity");
+  fillProvinceSelect(postProv, false, currentProvince);
+  fillCitySelect(postCity, postProv.value, false, currentCity);
+  document.getElementById("postModal").classList.add("active");
+}
+
+function closeModal(id) { document.getElementById(id).classList.remove("active"); }
+
+document.querySelectorAll(".modal-overlay").forEach(function(o) {
+  o.addEventListener("click", function(e) { if (e.target === o) o.classList.remove("active"); });
+});
+
+function boot() {
+  fillProvinceSelect(document.getElementById("provinceSelect"), true, currentProvince);
+  fillCitySelect(document.getElementById("citySelect"), currentProvince, true, currentCity);
+  updateLocationLabel();
+  fillCategorySelect(document.getElementById("postCategory"));
+  buildSpecialGrid();
+  buildCategoryBar();
+  updateProfileBtn();
+  loadAds();
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", boot);
+} else {
+  boot();
+}
+</script>
+</body>
+</html>
