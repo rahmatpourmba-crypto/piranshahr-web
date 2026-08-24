@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Menu, X, Search } from 'lucide-react'
+import { Menu, X, Search, User } from 'lucide-react'
+import { useAuth } from '../contexts/AuthContext'
 
 const LOGO_SVG = (
   <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -16,11 +17,12 @@ const NAV_LINKS = [
   ['/taxi', 'تاکسی'],
 ]
 
-export default function Header() {
+export default function Header({ onOpenAuth, onOpenProfile }) {
   const [open, setOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const loc = useLocation()
   const navigate = useNavigate()
+  const { user } = useAuth()
 
   const handleSearch = (e) => {
     e.preventDefault()
@@ -57,6 +59,15 @@ export default function Header() {
           + ثبت آگهی
         </Link>
 
+        <button onClick={() => user ? onOpenProfile?.() : onOpenAuth?.()}
+          className="hidden md:flex items-center justify-center w-9 h-9 rounded-full bg-gray-50 border border-gray-200 hover:border-[#A13D4C] transition-colors flex-shrink-0">
+          {user ? (
+            <span className="text-[13px] font-bold text-[#A13D4C]">{user.displayName?.[0] || user.email?.[0]}</span>
+          ) : (
+            <User size={16} className="text-gray-400" />
+          )}
+        </button>
+
         <button onClick={() => setOpen(!open)} className="md:hidden p-2 rounded-lg hover:bg-gray-100 text-gray-500 ml-auto">
           {open ? <X size={20} /> : <Menu size={20} />}
         </button>
@@ -76,6 +87,10 @@ export default function Header() {
               className={`block py-2.5 px-3 rounded-lg text-[14px] font-medium ${loc.pathname === to ? 'bg-[#A13D4C] text-white' : 'text-gray-600 hover:bg-gray-50'}`}>{label}</Link>
           ))}
           <Link to="/submit" onClick={() => setOpen(false)} className="block py-2.5 px-3 rounded-lg text-[14px] font-medium text-gray-600 hover:bg-gray-50">ثبت آگهی</Link>
+          <button onClick={() => { user ? onOpenProfile?.() : onOpenAuth?.(); setOpen(false) }}
+            className="block w-full text-right py-2.5 px-3 rounded-lg text-[14px] font-medium text-gray-600 hover:bg-gray-50">
+            {user ? `${user.displayName || 'پروفایل'}` : 'ورود / ثبت‌نام'}
+          </button>
         </div>
       )}
     </header>
