@@ -49,6 +49,8 @@ export const CATEGORIES = [
   { value: 'خدمات', label: 'خدمات', icon: '🔧' },
   { value: 'استخدام', label: 'استخدام', icon: '💼' },
   { value: 'درخواست کار', label: 'درخواست کار', icon: '🔨' },
+  { value: 'کارگزاری', label: 'کارگزاری', icon: '🏢' },
+  { value: 'ترخیص کار', label: 'ترخیص کار', icon: '📦' },
   { value: 'حمل و نقل', label: 'حمل و نقل', icon: '🚚' },
   { value: 'رایگان', label: 'رایگان', icon: '🎁' },
   { value: 'گمشده', label: 'گمشده', icon: '🔍' },
