@@ -675,6 +675,9 @@ async function submitAd() {
     alert("لطفاً فیلدهای ستاره‌دار را پر کنید.");
     return;
   }
+  if (!currentUser || !auth.currentUser) {
+    currentUser = auth.currentUser;
+  }
   if (!currentUser) {
     alert("لطفاً ابتدا وارد شوید.");
     closeModal("postModal");
@@ -756,12 +759,14 @@ async function doAuth() {
     if (isRegister) {
       var cred = await auth.createUserWithEmailAndPassword(email, pass);
       await cred.user.updateProfile({ displayName: name });
-      alert("✅ ثبت‌نام موفق!");
+      currentUser = auth.currentUser;
     } else {
-      await auth.signInWithEmailAndPassword(email, pass);
-      alert("✅ ورود موفق!");
+      var cred2 = await auth.signInWithEmailAndPassword(email, pass);
+      currentUser = auth.currentUser;
     }
     closeModal("profileModal");
+    alert("✅ " + (isRegister ? "ثبت‌نام" : "ورود") + " موفق!");
+    isRegister = false;
   } catch (err) {
     console.error("auth error:", err);
     var msg = err.message;
@@ -785,6 +790,9 @@ async function logout() {
 }
 
 function openPostModal() {
+  if (!currentUser || !auth.currentUser) {
+    currentUser = auth.currentUser;
+  }
   if (!currentUser) {
     alert("برای ثبت آگهی ابتدا وارد شوید.");
     openProfile();
