@@ -277,7 +277,17 @@
         <div style="font-size:12px;color:#666;margin-top:4px;">عبدالباسط رحمت پور — بانک صادرات</div>
         <div style="font-size:11px;color:var(--primary);margin-top:4px;cursor:pointer" onclick="copyCard()">📋 کپی شماره کارت</div>
       </div>
-      <button class="btn-pay" onclick="confirmCardPayment()">✓ پرداخت کردم — نمایش شماره</button>
+      <div id="payStep1">
+        <button class="btn-pay" onclick="showPayVerify()">✓ پرداخت کردم</button>
+      </div>
+      <div id="payStep2" style="display:none;">
+        <div style="background:#f8f9fa;border-radius:11px;padding:12px;margin-bottom:10px;text-align:center;">
+          <div style="font-size:12px;color:#666;margin-bottom:6px;">مبلغ پرداختی را وارد کنید:</div>
+          <input type="text" id="payVerifyInput" placeholder="مثلاً 20000" style="width:100%;padding:10px;border:1.5px solid var(--border);border-radius:8px;text-align:center;font-size:16px;font-weight:700;font-family:monospace;box-sizing:border-box;">
+        </div>
+        <button class="btn-pay" onclick="verifyPayment()">تایید و نمایش شماره</button>
+        <div id="payError" style="display:none;font-size:12px;color:#c0392b;text-align:center;margin-top:6px;">مبلغ صحیح را وارد کنید (۲۰۰۰۰)</div>
+      </div>
     </div>
   </div>
 </div>
@@ -897,6 +907,10 @@ function openDetail(id) {
 }
 
 function openPayModal() {
+  document.getElementById("payStep1").style.display = "";
+  document.getElementById("payStep2").style.display = "none";
+  document.getElementById("payVerifyInput").value = "";
+  document.getElementById("payError").style.display = "none";
   document.getElementById("payModal").classList.add("active");
 }
 
@@ -908,14 +922,23 @@ function copyCard() {
   }).catch(function() {});
 }
 
-function confirmCardPayment() {
-  if (!currentUser) {
-    alert("لطفاً ابتدا وارد شوید");
-    closeModal("payModal");
-    openProfileModal();
-    return;
+function showPayVerify() {
+  document.getElementById("payStep1").style.display = "none";
+  document.getElementById("payStep2").style.display = "block";
+  document.getElementById("payVerifyInput").focus();
+}
+
+function verifyPayment() {
+  var input = document.getElementById("payVerifyInput").value.trim().replace(/[,\s۰-۹]/g, function(c) {
+    var map = {"۰":"0","۱":"1","۲":"2","۳":"3","۴":"4","۵":"5","۶":"6","۷":"7","۸":"8","۹":"9"};
+    return map[c] || c;
+  });
+  if (input === "20000" || input === "20000") {
+    document.getElementById("payError").style.display = "none";
+    revealPhone();
+  } else {
+    document.getElementById("payError").style.display = "block";
   }
-  revealPhone();
 }
 
 function revealPhone() {
