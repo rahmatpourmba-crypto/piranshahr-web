@@ -602,11 +602,17 @@ function escHtml(s) {
 
 async function loadAds() {
   try {
-    var query = db.collection("ads").orderBy("createdAt", "desc").limit(200);
-    var snapshot = await query.get();
+    var snapshot = await db.collection("ads").get();
     ads = [];
     snapshot.forEach(function(doc) {
-      ads.push({ id: doc.id, ...doc.data() });
+      var data = doc.data();
+      data.id = doc.id;
+      ads.push(data);
+    });
+    ads.sort(function(a, b) {
+      var ta = a.createdAt && a.createdAt.seconds ? a.createdAt.seconds : 0;
+      var tb = b.createdAt && b.createdAt.seconds ? b.createdAt.seconds : 0;
+      return tb - ta;
     });
     renderAds();
   } catch (err) {
@@ -817,19 +823,24 @@ document.querySelectorAll(".modal-overlay").forEach(function(o) {
 });
 
 function boot() {
-  fillProvinceSelect(document.getElementById("provinceSelect"), true, currentProvince);
-  fillCitySelect(document.getElementById("citySelect"), currentProvince, true, currentCity);
-  updateLocationLabel();
-  fillCategorySelect(document.getElementById("postCategory"));
-  buildSpecialGrid();
-  buildCategoryBar();
-  updateProfileBtn();
-  loadAds();
-
   var submitBtn = document.getElementById("submitAdBtn");
   if (submitBtn) {
     submitBtn.addEventListener("click", function() { submitAd(); });
   }
+
+  try {
+    fillProvinceSelect(document.getElementById("provinceSelect"), true, currentProvince);
+    fillCitySelect(document.getElementById("citySelect"), currentProvince, true, currentCity);
+    updateLocationLabel();
+    fillCategorySelect(document.getElementById("postCategory"));
+    buildSpecialGrid();
+    buildCategoryBar();
+    updateProfileBtn();
+  } catch (err) {
+    console.error("boot init error:", err);
+  }
+
+  loadAds();
 }
 
 if (document.readyState === "loading") {
