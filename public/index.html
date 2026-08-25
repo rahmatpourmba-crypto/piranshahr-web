@@ -663,29 +663,31 @@ function confirmPayment() {
 }
 
 async function submitAd() {
-  var title = document.getElementById("postTitle").value.trim();
-  var category = document.getElementById("postCategory").value;
-  var province = document.getElementById("postProvince").value;
-  var city = document.getElementById("postCity").value;
-  var priceVal = document.getElementById("postPrice").value;
-  var desc = document.getElementById("postDesc").value.trim();
-  var phone = document.getElementById("postPhone").value.trim();
-
-  if (!title || !desc || !phone || !province || !city) {
-    alert("لطفاً فیلدهای ستاره‌دار را پر کنید.");
-    return;
-  }
-  if (!currentUser || !auth.currentUser) {
-    currentUser = auth.currentUser;
-  }
-  if (!currentUser) {
-    alert("لطفاً ابتدا وارد شوید.");
-    closeModal("postModal");
-    openProfile();
-    return;
-  }
-
   try {
+    var title = (document.getElementById("postTitle") || {}).value || "";
+    var category = (document.getElementById("postCategory") || {}).value || "";
+    var province = (document.getElementById("postProvince") || {}).value || "";
+    var city = (document.getElementById("postCity") || {}).value || "";
+    var priceVal = (document.getElementById("postPrice") || {}).value || "";
+    var desc = (document.getElementById("postDesc") || {}).value || "";
+    var phone = (document.getElementById("postPhone") || {}).value || "";
+    title = title.trim();
+    desc = desc.trim();
+    phone = phone.trim();
+
+    if (!title || !desc || !phone || !province || !city) {
+      alert("لطفاً فیلدهای ستاره‌دار را پر کنید.\n\nعنوان: " + (title || "خالی") + "\nتوضیحات: " + (desc || "خالی") + "\nتلفن: " + (phone || "خالی") + "\nاستان: " + (province || "خالی") + "\nشهر: " + (city || "خالی"));
+      return;
+    }
+
+    currentUser = auth.currentUser || currentUser;
+    if (!currentUser) {
+      alert("لطفاً ابتدا وارد شوید.");
+      closeModal("postModal");
+      openProfile();
+      return;
+    }
+
     await db.collection("ads").add({
       title: title,
       category: category,
@@ -699,12 +701,15 @@ async function submitAd() {
       createdAt: firebase.firestore.FieldValue.serverTimestamp()
     });
     closeModal("postModal");
-    ["postTitle", "postPrice", "postDesc", "postPhone"].forEach(function(id) { document.getElementById(id).value = ""; });
+    ["postTitle", "postPrice", "postDesc", "postPhone"].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.value = "";
+    });
     alert("✅ آگهی شما ثبت شد!");
     loadAds();
   } catch (err) {
     console.error("submitAd error:", err);
-    alert("خطا در ثبت آگهی. دوباره تلاش کنید.");
+    alert("خطا در ثبت آگهی:\n" + err.message);
   }
 }
 
