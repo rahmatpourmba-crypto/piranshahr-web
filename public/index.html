@@ -46,6 +46,10 @@
     .btn-ghost { background: var(--bg); border: 1px solid var(--border); color: var(--text); }
     .btn-ghost:hover { border-color: var(--primary); color: var(--primary); }
     .btn-icon { width: 40px; height: 40px; padding: 0; justify-content: center; border-radius: 50%; background: var(--bg); border: 1px solid var(--border); font-size: 18px; cursor: pointer; }
+    .btn-danger { background: #ef4444; color: white; border: none; border-radius: 8px; padding: 8px 14px; font-family: inherit; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+    .btn-danger:hover { background: #dc2626; }
+    .btn-secondary { background: #6b7280; color: white; border: none; border-radius: 8px; padding: 8px 14px; font-family: inherit; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+    .btn-secondary:hover { background: #4b5563; }
 
     .location-bar { background: var(--white); border-bottom: 1px solid var(--border); padding: 10px 16px; }
     .location-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
@@ -81,7 +85,8 @@
     .ads-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
     .ad-card { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); cursor: pointer; transition: 0.2s; border: 1px solid transparent; }
     .ad-card:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(0,0,0,0.1); border-color: var(--border); }
-    .ad-image { height: 150px; background: linear-gradient(135deg, #f0f0f0, #e8e8e8); display: flex; align-items: center; justify-content: center; position: relative; }
+    .ad-image { height: 150px; background: linear-gradient(135deg, #f0f0f0, #e8e8e8); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .ad-image img { width: 100%; height: 100%; object-fit: cover; }
     .ad-image .placeholder { font-size: 38px; opacity: 0.28; }
     .ad-badge { position: absolute; top: 8px; right: 8px; background: var(--white); padding: 3px 9px; border-radius: 20px; font-size: 11px; font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.08); }
     .ad-badge.special { background: #fef3c7; color: #b45309; }
@@ -97,7 +102,8 @@
     .modal.wide { max-width: 560px; }
     @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     .modal-close { position: absolute; top: 12px; left: 12px; width: 32px; height: 32px; border-radius: 50%; border: none; background: var(--bg); font-size: 18px; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; }
-    .modal-image { height: 200px; background: linear-gradient(135deg, #f0f0f0, #e8e8e8); display: flex; align-items: center; justify-content: center; font-size: 52px; opacity: 0.3; }
+    .modal-image { height: 200px; background: linear-gradient(135deg, #f0f0f0, #e8e8e8); display: flex; align-items: center; justify-content: center; font-size: 52px; opacity: 0.3; overflow: hidden; }
+    .modal-image img { width: 100%; height: 100%; object-fit: cover; opacity: 1; }
     .modal-content { padding: 18px; }
     .modal-badge { display: inline-block; background: var(--primary-light); color: var(--primary); padding: 3px 10px; border-radius: 20px; font-size: 11.5px; font-weight: 600; margin-bottom: 8px; }
     .modal-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
@@ -118,6 +124,21 @@
     .form-group textarea { resize: vertical; min-height: 75px; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
+    .upload-area { border: 2px dashed var(--border); border-radius: 12px; padding: 24px 16px; text-align: center; cursor: pointer; transition: 0.2s; background: var(--bg); }
+    .upload-area:hover { border-color: var(--primary); background: var(--primary-light); }
+    .upload-area .upload-icon { font-size: 32px; margin-bottom: 6px; opacity: 0.5; }
+    .upload-area .upload-text { font-size: 12.5px; color: var(--text-secondary); }
+    .upload-area .upload-hint { font-size: 11px; color: #999; margin-top: 3px; }
+    .upload-preview { position: relative; display: inline-block; border-radius: 10px; overflow: hidden; max-width: 200px; }
+    .upload-preview img { width: 100%; height: auto; display: block; border-radius: 10px; }
+    .upload-preview .remove-img { position: absolute; top: 4px; right: 4px; width: 24px; height: 24px; border-radius: 50%; background: #ef4444; color: white; border: none; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+    .extra-fields { background: #fefce8; border: 1px solid #fde68a; border-radius: 10px; padding: 12px 14px; margin-bottom: 13px; }
+    .extra-fields-title { font-size: 12.5px; font-weight: 700; color: #92400e; margin-bottom: 8px; }
+
+    .ad-actions { display: flex; gap: 8px; margin-top: 14px; }
+    .ad-actions button { flex: 1; }
+
     .profile-header { text-align: center; padding: 24px 18px 10px; }
     .profile-avatar { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, #A13D4C, #c45a6a); color: white; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; margin: 0 auto 12px; }
     .profile-name { font-size: 18px; font-weight: 700; }
@@ -132,10 +153,12 @@
     .profile-ads { padding: 14px 18px 20px; }
     .profile-ad-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); align-items: center; }
     .profile-ad-item:last-child { border-bottom: none; }
-    .profile-ad-emoji { width: 48px; height: 48px; background: var(--bg); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+    .profile-ad-emoji { width: 48px; height: 48px; background: var(--bg); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; overflow: hidden; }
+    .profile-ad-emoji img { width: 100%; height: 100%; object-fit: cover; }
     .profile-ad-info { flex: 1; min-width: 0; }
     .profile-ad-info .t { font-size: 13.5px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .profile-ad-info .m { font-size: 12px; color: var(--text-secondary); }
+    .profile-ad-actions { display: flex; gap: 6px; flex-shrink: 0; }
     .auth-box { padding: 20px 18px; }
     .auth-toggle { text-align: center; margin-top: 12px; font-size: 13px; color: var(--text-secondary); }
     .auth-toggle span { color: var(--primary); cursor: pointer; font-weight: 600; }
@@ -228,7 +251,9 @@
       <span class="modal-badge" id="modalBadge"></span>
       <h2 class="modal-title" id="modalTitle"></h2>
       <div class="modal-price" id="modalPrice"></div>
+      <div id="modalExtraFields"></div>
       <p class="modal-desc" id="modalDesc"></p>
+      <div id="detailAdActions" style="display:none"></div>
       <div class="contact-box">
         <div class="phone-hidden" id="phoneDisplay">۰۹۱۲ ••• ••••</div>
         <button class="btn-pay" id="payBtn" onclick="openPayModal()">مشاهده شماره تماس — ۲۰,۰۰۰ تومان</button>
@@ -265,7 +290,7 @@
   <div class="modal wide">
     <button class="modal-close" onclick="closeModal('postModal')">×</button>
     <div class="modal-content" style="padding-top:36px">
-      <h2 style="margin-bottom:16px;font-size:16.5px">ثبت آگهی رایگان در بازارچه</h2>
+      <h2 style="margin-bottom:16px;font-size:16.5px" id="postModalTitle">ثبت آگهی رایگان در بازارچه</h2>
       <div class="form-group">
         <label>عنوان آگهی *</label>
         <input type="text" id="postTitle" placeholder="مثلاً: مبل راحتی سه نفره">
@@ -273,13 +298,24 @@
       <div class="form-row">
         <div class="form-group">
           <label>دسته‌بندی *</label>
-          <select id="postCategory"></select>
+          <select id="postCategory" onchange="onPostCategoryChange()"></select>
         </div>
         <div class="form-group">
           <label>قیمت (تومان)</label>
           <input type="number" id="postPrice" placeholder="خالی = توافقی">
         </div>
       </div>
+      <div class="form-group">
+        <label>تصویر آگهی (حداکثر ۵۰۰ کیلوبایت)</label>
+        <div class="upload-area" id="uploadArea">
+          <div class="upload-icon">📷</div>
+          <div class="upload-text">کلیک کنید یا تصویر را بکشید</div>
+          <div class="upload-hint">حداکثر ۵۰۰KB • JPG/PNG</div>
+        </div>
+        <input type="file" id="postImageFile" accept="image/*" style="display:none">
+        <div id="uploadPreviewContainer" style="display:none;margin-top:8px;text-align:center"></div>
+      </div>
+      <div id="postExtraFields"></div>
       <div class="form-row">
         <div class="form-group">
           <label>استان *</label>
@@ -330,6 +366,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
 <script>
 const FIREBASE_CONFIG = {
   apiKey: "AIzaSyDB6p_i6g3K5kB01n1fjiQaH6iA5kjf2Ec",
@@ -342,11 +379,63 @@ const FIREBASE_CONFIG = {
 firebase.initializeApp(FIREBASE_CONFIG);
 const db = firebase.firestore();
 const auth = firebase.auth();
+const storage = firebase.storage();
 
 const SPECIAL_CATS = ["معاوضه غذا","غذای رستوران","نوبت خالی","کولبری","تاکسی","دام و کشاورزی"];
 const SPECIAL_DESCS = {"معاوضه غذا":"همسایه به همسایه","غذای رستوران":"رستوران و فست‌فود","نوبت خالی":"پزشک، آرایشگاه...","کولبری":"خدمات مرزی","تاکسی":"دربستی و شهری","دام و کشاورزی":"محصولات محلی"};
 const CATEGORY_EMOJI = {"فروش":"🛒","دست دوم":"♻️","معاوضه":"🔄","معاوضه غذا":"🍃","غذای رستوران":"🍛","نوبت خالی":"📅","کولبری":"🎒","تاکسی":"🚕","دام و کشاورزی":"🐑","املاک":"🏠","وسایل نقلیه":"🚗","لوازم خانگی":"🛋️","موبایل و تبلت":"📱","خدمات":"🔧","استخدام":"💼","درخواست کار":"🔨","کارگزاری":"🏢","ترخیص کار":"📦","حمل و نقل":"🚚","رایگان":"🎁","گمشده":"🔍","پیداشده":"✅"};
 const ALL_CATS = Object.keys(CATEGORY_EMOJI);
+
+const EXTRA_FIELDS_CONFIG = {
+  "معاوضه غذا": [
+    { key: "foodIHave", label: "غذای من", type: "text", placeholder: "مثلاً: قرمه‌سبزی" },
+    { key: "foodIWant", label: "غذای مورد نظر", type: "text", placeholder: "مثلاً: زرشک‌پلو" }
+  ],
+  "غذای رستوران": [
+    { key: "restaurantName", label: "نام رستوران", type: "text", placeholder: "مثلاً: رستوران سنتی" },
+    { key: "foodType", label: "نوع غذا", type: "text", placeholder: "مثلاً: کباب، آش" },
+    { key: "prepTime", label: "ساعت تهیه", type: "text", placeholder: "مثلاً: ۱۲ تا ۱۴" }
+  ],
+  "نوبت خالی": [
+    { key: "appointmentType", label: "نوع نوبت", type: "text", placeholder: "مثلاً: پزشک، آرایشگاه" },
+    { key: "dateTime", label: "تاریخ و ساعت", type: "text", placeholder: "مثلاً: ۵ شنبه ساعت ۱۰" },
+    { key: "location", label: "مکان", type: "text", placeholder: "آدرس یا نام مرکز" }
+  ],
+  "کولبری": [
+    { key: "route", label: "مسیر", type: "text", placeholder: "مثلاً: پیرانشهر-سردشت" },
+    { key: "cargoType", label: "نوع بار", type: "text", placeholder: "مثلاً: لوازم خانگی" },
+    { key: "weightLimit", label: "محدودیت وزن", type: "text", placeholder: "مثلاً: حداکثر ۳۰ کیلو" }
+  ],
+  "تاکسی": [
+    { key: "route", label: "مسیر", type: "text", placeholder: "مثلاً: پیرانشهر به ارومیه" },
+    { key: "serviceType", label: "نوع سرویس", type: "select", options: ["شهری", "بین‌شهری", "دربستی"] },
+    { key: "time", label: "ساعت", type: "text", placeholder: "مثلاً: فردا ساعت ۸ صبح" }
+  ],
+  "دام و کشاورزی": [
+    { key: "productType", label: "نوع محصول", type: "text", placeholder: "مثلاً: گردو، عسل" },
+    { key: "quantity", label: "مقدار", type: "text", placeholder: "مثلاً: ۱۰ کیلو" },
+    { key: "freshDry", label: "تازه/خشک", type: "select", options: ["تازه", "خشک"] }
+  ]
+};
+
+const CITY_COORDS = {
+  "پیرانشهر": [36.6863, 45.9278],
+  "ارومیه": [37.5528, 45.0759],
+  "خوی": [38.5503, 44.9513],
+  "مهاباد": [36.7631, 45.7453],
+  "بوکان": [36.5208, 46.2083],
+  "میاندوآب": [36.9694, 46.1028],
+  "سلماس": [38.1981, 44.7653],
+  "نقده": [36.9553, 45.3878],
+  "ماکو": [39.2917, 44.5167],
+  "سردشت": [36.1553, 45.4753],
+  "شاهین‌دژ": [36.6742, 46.5647],
+  "تکاب": [36.5628, 47.1014],
+  "اشنویه": [37.0694, 45.1842],
+  "تبریز": [38.0800, 46.2919],
+  "تهران": [35.6892, 51.3890]
+};
+
 const provinces = {
   "آذربایجان شرقی":["تبریز","مراغه","مرند","میانه","اهر"],"آذربایجان غربی":["ارومیه","خوی","مهاباد","بوکان","میاندوآب","سلماس","پیرانشهر","نقده","ماکو","سردشت","شاهین‌دژ","تکاب","اشنویه"],
   "اردبیل":["اردبیل","پارس‌آباد","خلخال"],"اصفهان":["اصفهان","کاشان","خمینی‌شهر","نجف‌آباد"],"البرز":["کرج","فردیس","نظرآباد"],
@@ -364,6 +453,10 @@ let currentCat = "همه", currentProvince = "آذربایجان غربی", curr
 let ads = [];
 let currentUser = null;
 let currentAdUserId = null;
+let editingAdId = null;
+let selectedImageFile = null;
+let userLat = null;
+let userLng = null;
 
 auth.onAuthStateChanged(function(user) {
   currentUser = user;
@@ -372,6 +465,41 @@ auth.onAuthStateChanged(function(user) {
     openProfile();
   }
 });
+
+function initGeolocation() {
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(
+      function(pos) {
+        userLat = pos.coords.latitude;
+        userLng = pos.coords.longitude;
+        localStorage.setItem("bazar_lat", userLat);
+        localStorage.setItem("bazar_lng", userLng);
+        renderAds();
+      },
+      function(err) {
+        console.log("Geolocation denied:", err.message);
+        var savedLat = localStorage.getItem("bazar_lat");
+        var savedLng = localStorage.getItem("bazar_lng");
+        if (savedLat && savedLng) {
+          userLat = parseFloat(savedLat);
+          userLng = parseFloat(savedLng);
+        }
+      },
+      { enableHighAccuracy: false, timeout: 10000 }
+    );
+  }
+}
+
+function haversineDistance(lat1, lng1, lat2, lng2) {
+  var R = 6371;
+  var dLat = (lat2 - lat1) * Math.PI / 180;
+  var dLng = (lng2 - lng1) * Math.PI / 180;
+  var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+          Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+          Math.sin(dLng / 2) * Math.sin(dLng / 2);
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+}
 
 function updateProfileBtn() {
   const btn = document.getElementById('profileBtn');
@@ -507,6 +635,68 @@ function onPostProvinceChange() {
   fillCitySelect(citySel, pSel.value, false);
 }
 
+function onPostCategoryChange() {
+  var cat = document.getElementById("postCategory").value;
+  renderExtraFields(cat, "postExtraFields");
+}
+
+function renderExtraFields(category, containerId) {
+  var container = document.getElementById(containerId);
+  if (!container) return;
+  if (!EXTRA_FIELDS_CONFIG[category]) {
+    container.innerHTML = "";
+    return;
+  }
+  var fields = EXTRA_FIELDS_CONFIG[category];
+  var html = '<div class="extra-fields"><div class="extra-fields-title">📋 اطلاعات تکمیلی — ' + category + '</div>';
+  fields.forEach(function(f) {
+    html += '<div class="form-group"><label>' + f.label + '</label>';
+    if (f.type === "select") {
+      html += '<select id="extra_' + f.key + '">';
+      f.options.forEach(function(opt) {
+        html += '<option value="' + opt + '">' + opt + '</option>';
+      });
+      html += '</select>';
+    } else {
+      html += '<input type="text" id="extra_' + f.key + '" placeholder="' + (f.placeholder || '') + '">';
+    }
+    html += '</div>';
+  });
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+function getExtraFieldsFromForm() {
+  var cat = document.getElementById("postCategory").value;
+  if (!EXTRA_FIELDS_CONFIG[cat]) return null;
+  var fields = EXTRA_FIELDS_CONFIG[cat];
+  var result = {};
+  fields.forEach(function(f) {
+    var el = document.getElementById("extra_" + f.key);
+    if (el) result[f.key] = el.value || "";
+  });
+  return result;
+}
+
+function displayExtraFields(extraFields, category, containerId) {
+  var container = document.getElementById(containerId);
+  if (!container) return;
+  if (!extraFields || !EXTRA_FIELDS_CONFIG[category]) {
+    container.innerHTML = "";
+    return;
+  }
+  var config = EXTRA_FIELDS_CONFIG[category];
+  var html = '<div class="extra-fields">';
+  config.forEach(function(f) {
+    var val = extraFields[f.key];
+    if (val) {
+      html += '<div style="margin-bottom:6px"><strong style="font-size:12px;color:#92400e">' + f.label + ':</strong> <span style="font-size:13px">' + escHtml(val) + '</span></div>';
+    }
+  });
+  html += '</div>';
+  container.innerHTML = html;
+}
+
 function scrollCats(dir) {
   document.getElementById("categories").scrollBy({ left: dir * -200, behavior: "smooth" });
 }
@@ -523,6 +713,10 @@ function filterCat(btn) {
   document.querySelectorAll(".cat-btn").forEach(function(b) { b.classList.remove("active"); });
   btn.classList.add("active");
   currentCat = btn.dataset.cat;
+  renderAds();
+}
+
+function filterAds() {
   renderAds();
 }
 
@@ -547,6 +741,39 @@ function renderAds() {
     }
     return true;
   });
+
+  filtered.sort(function(a, b) {
+    if (userLat !== null && userLng !== null) {
+      var aSameCity = (currentCity && a.city === currentCity) ? 0 : 1;
+      var bSameCity = (currentCity && b.city === currentCity) ? 0 : 1;
+      if (aSameCity !== bSameCity) return aSameCity - bSameCity;
+
+      var aCoords = CITY_COORDS[a.city];
+      var bCoords = CITY_COORDS[b.city];
+      if (aSameCity === 0 && bSameCity === 0) {
+        var aDist = aCoords ? haversineDistance(userLat, userLng, aCoords[0], aCoords[1]) : 99999;
+        var bDist = bCoords ? haversineDistance(userLat, userLng, bCoords[0], bCoords[1]) : 99999;
+        if (Math.abs(aDist - bDist) > 0.5) return aDist - bDist;
+      } else if (aSameCity === 0) {
+        return -1;
+      } else if (bSameCity === 0) {
+        return 1;
+      } else {
+        var aC = CITY_COORDS[a.city];
+        var bC = CITY_COORDS[b.city];
+        if (aC && bC) {
+          var dA = haversineDistance(userLat, userLng, aC[0], aC[1]);
+          var dB = haversineDistance(userLat, userLng, bC[0], bC[1]);
+          if (Math.abs(dA - dB) > 0.5) return dA - dB;
+        }
+      }
+    }
+
+    var ta = a.createdAt && a.createdAt.seconds ? a.createdAt.seconds : 0;
+    var tb = b.createdAt && b.createdAt.seconds ? b.createdAt.seconds : 0;
+    return tb - ta;
+  });
+
   var grid = document.getElementById("adsGrid");
   if (!filtered.length) {
     grid.innerHTML = '<div class="empty">آگهی‌ای یافت نشد.<br><small>شهر یا دسته دیگری را امتحان کنید.</small></div>';
@@ -558,8 +785,11 @@ function renderAds() {
     var priceText = ad.price && ad.price !== "توافقی" ? formatPrice(ad.price) + " تومان" : "توافقی";
     var timeText = timeAgo(ad.createdAt);
     var cityText = ad.city ? '📍 ' + ad.city : '';
+    var imageHtml = ad.imageUrl
+      ? '<img src="' + escHtml(ad.imageUrl) + '" alt="' + escHtml(ad.title) + '">'
+      : '<span class="placeholder">' + emoji + '</span>';
     return '<div class="ad-card" onclick="openDetail(\'' + ad.id + '\')">' +
-      '<div class="ad-image"><span class="placeholder">' + emoji + '</span>' +
+      '<div class="ad-image">' + imageHtml +
       '<span class="ad-badge ' + (isSpecial ? 'special' : '') + '">' + ad.category + '</span></div>' +
       '<div class="ad-body">' +
       '<div class="ad-title">' + escHtml(ad.title) + '</div>' +
@@ -609,11 +839,6 @@ async function loadAds() {
       data.id = doc.id;
       ads.push(data);
     });
-    ads.sort(function(a, b) {
-      var ta = a.createdAt && a.createdAt.seconds ? a.createdAt.seconds : 0;
-      var tb = b.createdAt && b.createdAt.seconds ? b.createdAt.seconds : 0;
-      return tb - ta;
-    });
     renderAds();
   } catch (err) {
     console.error("loadAds error:", err);
@@ -627,11 +852,34 @@ function openDetail(id) {
   currentAdId = id;
   currentAdUserId = ad.userId;
   var emoji = CATEGORY_EMOJI[ad.category] || "📦";
+
+  var modalImage = document.getElementById("modalImage");
+  if (ad.imageUrl) {
+    modalImage.innerHTML = '<img src="' + escHtml(ad.imageUrl) + '" alt="' + escHtml(ad.title) + '" style="width:100%;height:100%;object-fit:cover">';
+    modalImage.style.opacity = "1";
+  } else {
+    modalImage.innerHTML = emoji;
+    modalImage.style.opacity = "0.3";
+  }
+
   document.getElementById("modalBadge").textContent = ad.category + " • " + ad.city;
   document.getElementById("modalTitle").textContent = ad.title;
   document.getElementById("modalPrice").textContent = (!ad.price || ad.price === "توافقی") ? "قیمت توافقی" : formatPrice(ad.price) + " تومان";
   document.getElementById("modalDesc").textContent = ad.description || "";
-  document.getElementById("modalImage").textContent = emoji;
+
+  displayExtraFields(ad.extraFields, ad.category, "modalExtraFields");
+
+  var actionsDiv = document.getElementById("detailAdActions");
+  if (currentUser && ad.userId === currentUser.uid) {
+    actionsDiv.style.display = "block";
+    actionsDiv.innerHTML = '<div class="ad-actions">' +
+      '<button class="btn-secondary" onclick="editAd(\'' + ad.id + '\')">✏️ ویرایش</button>' +
+      '<button class="btn-danger" onclick="deleteAd(\'' + ad.id + '\')">🗑️ حذف</button>' +
+      '</div>';
+  } else {
+    actionsDiv.style.display = "none";
+    actionsDiv.innerHTML = "";
+  }
 
   var freeCats = ["رایگان", "گمشده", "پیداشده"];
   var isFreePhone = freeCats.indexOf(ad.category) !== -1;
@@ -668,6 +916,109 @@ function confirmPayment() {
   alert("✅ پرداخت موفق!\nشماره تماس نمایش داده شد.");
 }
 
+function compressImage(file, maxWidth) {
+  return new Promise(function(resolve, reject) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var img = new Image();
+      img.onload = function() {
+        var canvas = document.createElement("canvas");
+        var width = img.width;
+        var height = img.height;
+        if (width > maxWidth) {
+          height = Math.round(height * maxWidth / width);
+          width = maxWidth;
+        }
+        canvas.width = width;
+        canvas.height = height;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+        canvas.toBlob(function(blob) {
+          if (blob) resolve(blob);
+          else reject(new Error("Compression failed"));
+        }, "image/jpeg", 0.7);
+      };
+      img.onerror = function() { reject(new Error("Image load failed")); };
+      img.src = e.target.result;
+    };
+    reader.onerror = function() { reject(new Error("File read failed")); };
+    reader.readAsDataURL(file);
+  });
+}
+
+function setupUploadArea() {
+  var uploadArea = document.getElementById("uploadArea");
+  var fileInput = document.getElementById("postImageFile");
+  if (!uploadArea || !fileInput) return;
+
+  uploadArea.addEventListener("click", function() {
+    fileInput.click();
+  });
+
+  uploadArea.addEventListener("dragover", function(e) {
+    e.preventDefault();
+    uploadArea.style.borderColor = "var(--primary)";
+    uploadArea.style.background = "var(--primary-light)";
+  });
+
+  uploadArea.addEventListener("dragleave", function() {
+    uploadArea.style.borderColor = "";
+    uploadArea.style.background = "";
+  });
+
+  uploadArea.addEventListener("drop", function(e) {
+    e.preventDefault();
+    uploadArea.style.borderColor = "";
+    uploadArea.style.background = "";
+    if (e.dataTransfer.files.length > 0) {
+      handleImageSelect(e.dataTransfer.files[0]);
+    }
+  });
+
+  fileInput.addEventListener("change", function() {
+    if (fileInput.files.length > 0) {
+      handleImageSelect(fileInput.files[0]);
+    }
+  });
+}
+
+function handleImageSelect(file) {
+  if (!file.type.match(/^image\/(jpeg|jpg|png)$/)) {
+    alert("فقط فایل‌های JPG/PNG مجاز هستند.");
+    return;
+  }
+  if (file.size > 512000) {
+    alert("حجم فایل بیش از ۵۰۰ کیلوبایت است. لطفاً تصویر کوچک‌تری انتخاب کنید.");
+    return;
+  }
+  selectedImageFile = file;
+  var container = document.getElementById("uploadPreviewContainer");
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    container.innerHTML = '<div class="upload-preview"><img src="' + e.target.result + '"><button class="remove-img" onclick="removeSelectedImage(event)">×</button></div>';
+    container.style.display = "block";
+    document.getElementById("uploadArea").style.display = "none";
+  };
+  reader.readAsDataURL(file);
+}
+
+function removeSelectedImage(e) {
+  e.stopPropagation();
+  selectedImageFile = null;
+  document.getElementById("uploadPreviewContainer").innerHTML = "";
+  document.getElementById("uploadPreviewContainer").style.display = "none";
+  document.getElementById("uploadArea").style.display = "";
+  document.getElementById("postImageFile").value = "";
+}
+
+async function uploadImage(file) {
+  var compressed = await compressImage(file, 800);
+  var fileName = Date.now() + "_" + file.name.replace(/[^a-zA-Z0-9.]/g, "_");
+  var ref = storage.ref("ads/" + fileName);
+  await ref.put(compressed);
+  return await ref.getDownloadURL();
+}
+
 async function submitAd() {
   try {
     var title = (document.getElementById("postTitle") || {}).value || "";
@@ -694,7 +1045,7 @@ async function submitAd() {
       return;
     }
 
-    await db.collection("ads").add({
+    var adData = {
       title: title,
       category: category,
       price: priceVal ? priceVal : "توافقی",
@@ -704,18 +1055,145 @@ async function submitAd() {
       city: city,
       userId: currentUser.uid,
       userName: currentUser.displayName || currentUser.email,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    });
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    };
+
+    var extraFields = getExtraFieldsFromForm();
+    if (extraFields) {
+      adData.extraFields = extraFields;
+    }
+
+    var savedLat = localStorage.getItem("bazar_lat");
+    var savedLng = localStorage.getItem("bazar_lng");
+    if (savedLat && savedLng) {
+      adData.lat = parseFloat(savedLat);
+      adData.lng = parseFloat(savedLng);
+    }
+
+    var submitBtn = document.getElementById("submitAdBtn");
+    submitBtn.textContent = "در حال آپلود...";
+    submitBtn.disabled = true;
+
+    if (selectedImageFile) {
+      var url = await uploadImage(selectedImageFile);
+      adData.imageUrl = url;
+    }
+
+    if (editingAdId) {
+      var existingAd = ads.find(function(a) { return a.id === editingAdId; });
+      if (selectedImageFile && existingAd && existingAd.imageUrl) {
+        try {
+          var oldRef = storage.refFromURL(existingAd.imageUrl);
+          await oldRef.delete();
+        } catch (delErr) {
+          console.log("Could not delete old image:", delErr);
+        }
+      }
+      await db.collection("ads").doc(editingAdId).update(adData);
+      alert("✅ آگهی شما ویرایش شد!");
+      editingAdId = null;
+    } else {
+      adData.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+      await db.collection("ads").add(adData);
+      alert("✅ آگهی شما ثبت شد!");
+    }
+
+    resetPostForm();
     closeModal("postModal");
-    ["postTitle", "postPrice", "postDesc", "postPhone"].forEach(function(id) {
-      var el = document.getElementById(id);
-      if (el) el.value = "";
-    });
-    alert("✅ آگهی شما ثبت شد!");
     loadAds();
   } catch (err) {
     console.error("submitAd error:", err);
     alert("خطا در ثبت آگهی:\n" + err.message);
+  } finally {
+    var submitBtn = document.getElementById("submitAdBtn");
+    submitBtn.textContent = editingAdId ? "ذخیره تغییرات" : "ثبت آگهی رایگان";
+    submitBtn.disabled = false;
+  }
+}
+
+function resetPostForm() {
+  ["postTitle", "postPrice", "postDesc", "postPhone"].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.value = "";
+  });
+  selectedImageFile = null;
+  var previewContainer = document.getElementById("uploadPreviewContainer");
+  if (previewContainer) {
+    previewContainer.innerHTML = "";
+    previewContainer.style.display = "none";
+  }
+  var uploadArea = document.getElementById("uploadArea");
+  if (uploadArea) uploadArea.style.display = "";
+  var fileInput = document.getElementById("postImageFile");
+  if (fileInput) fileInput.value = "";
+  var extraFieldsContainer = document.getElementById("postExtraFields");
+  if (extraFieldsContainer) extraFieldsContainer.innerHTML = "";
+  editingAdId = null;
+  document.getElementById("postModalTitle").textContent = "ثبت آگهی رایگان در بازارچه";
+}
+
+function editAd(adId) {
+  var ad = ads.find(function(a) { return a.id === adId; });
+  if (!ad) return;
+
+  editingAdId = adId;
+  closeModal("detailModal");
+
+  var postProv = document.getElementById("postProvince");
+  var postCity = document.getElementById("postCity");
+  fillProvinceSelect(postProv, false, ad.province);
+  fillCitySelect(postCity, postProv.value, false, ad.city);
+
+  var postCat = document.getElementById("postCategory");
+  postCat.value = ad.category;
+
+  document.getElementById("postTitle").value = ad.title || "";
+  document.getElementById("postPrice").value = (ad.price && ad.price !== "توافقی") ? ad.price : "";
+  document.getElementById("postDesc").value = ad.description || "";
+  document.getElementById("postPhone").value = ad.phone || "";
+
+  onPostCategoryChange();
+  if (ad.extraFields) {
+    var config = EXTRA_FIELDS_CONFIG[ad.category];
+    if (config) {
+      config.forEach(function(f) {
+        var el = document.getElementById("extra_" + f.key);
+        if (el && ad.extraFields[f.key]) el.value = ad.extraFields[f.key];
+      });
+    }
+  }
+
+  if (ad.imageUrl) {
+    var container = document.getElementById("uploadPreviewContainer");
+    container.innerHTML = '<div class="upload-preview"><img src="' + escHtml(ad.imageUrl) + '"><button class="remove-img" onclick="removeSelectedImage(event)">×</button></div>';
+    container.style.display = "block";
+    document.getElementById("uploadArea").style.display = "none";
+  }
+
+  document.getElementById("postModalTitle").textContent = "ویرایش آگهی";
+  document.getElementById("submitAdBtn").textContent = "ذخیره تغییرات";
+  document.getElementById("postModal").classList.add("active");
+}
+
+async function deleteAd(adId) {
+  if (!confirm("آیا از حذف این آگهی مطمئن هستید؟")) return;
+  try {
+    var ad = ads.find(function(a) { return a.id === adId; });
+    if (ad && ad.imageUrl) {
+      try {
+        var imgRef = storage.refFromURL(ad.imageUrl);
+        await imgRef.delete();
+      } catch (delErr) {
+        console.log("Could not delete image:", delErr);
+      }
+    }
+    await db.collection("ads").doc(adId).delete();
+    alert("✅ آگهی حذف شد.");
+    closeModal("detailModal");
+    loadAds();
+  } catch (err) {
+    console.error("deleteAd error:", err);
+    alert("خطا در حذف آگهی:\n" + err.message);
   }
 }
 
@@ -725,15 +1203,45 @@ function openProfile() {
     var initial = (currentUser.displayName || currentUser.email || "ک")[0].toUpperCase();
     var email = currentUser.email || "";
     var name = currentUser.displayName || email.split("@")[0];
+    var userAds = ads.filter(function(a) { return a.userId === currentUser.uid; });
+
+    var adsHtml = '<div class="profile-ads">';
+    if (userAds.length === 0) {
+      adsHtml += '<div style="text-align:center;color:var(--text-secondary);padding:16px 0;font-size:13px">هنوز آگهی ثبت نکرده‌اید.</div>';
+    } else {
+      userAds.forEach(function(ad) {
+        var emoji = CATEGORY_EMOJI[ad.category] || "📌";
+        var thumbHtml = ad.imageUrl
+          ? '<img src="' + escHtml(ad.imageUrl) + '" alt="">'
+          : emoji;
+        adsHtml += '<div class="profile-ad-item">' +
+          '<div class="profile-ad-emoji">' + thumbHtml + '</div>' +
+          '<div class="profile-ad-info" onclick="openDetail(\'' + ad.id + '\')" style="cursor:pointer">' +
+          '<div class="t">' + escHtml(ad.title) + '</div>' +
+          '<div class="m">' + ad.category + ' • ' + timeAgo(ad.createdAt) + '</div>' +
+          '</div>' +
+          '<div class="profile-ad-actions">' +
+          '<button class="btn-secondary" onclick="editAd(\'' + ad.id + '\')" style="padding:6px 10px;font-size:11px">✏️</button>' +
+          '<button class="btn-danger" onclick="deleteAd(\'' + ad.id + '\')" style="padding:6px 10px;font-size:11px">🗑️</button>' +
+          '</div>' +
+          '</div>';
+      });
+    }
+    adsHtml += '</div>';
+
     box.innerHTML =
       '<div class="profile-header">' +
         '<div class="profile-avatar">' + escHtml(initial) + '</div>' +
         '<div class="profile-name">' + escHtml(name) + '</div>' +
         '<div class="profile-email">' + escHtml(email) + '</div>' +
+        '<div class="profile-stats">' +
+          '<div class="profile-stat"><div class="num">' + userAds.length + '</div><div class="lbl">آگهی</div></div>' +
+        '</div>' +
       '</div>' +
-      '<div class="profile-ads">' +
+      '<div style="padding:0 18px 10px">' +
         '<button class="btn-pay" style="background:#666" onclick="logout()">خروج از حساب</button>' +
-      '</div>';
+      '</div>' +
+      adsHtml;
   } else {
     box.innerHTML =
       '<div class="auth-box">' +
@@ -809,6 +1317,7 @@ function openPostModal() {
     openProfile();
     return;
   }
+  resetPostForm();
   var postProv = document.getElementById("postProvince");
   var postCity = document.getElementById("postCity");
   fillProvinceSelect(postProv, false, currentProvince);
@@ -836,6 +1345,8 @@ function boot() {
     buildSpecialGrid();
     buildCategoryBar();
     updateProfileBtn();
+    setupUploadArea();
+    initGeolocation();
   } catch (err) {
     console.error("boot init error:", err);
   }
