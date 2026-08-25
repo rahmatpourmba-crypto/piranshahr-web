@@ -267,22 +267,37 @@
   <div class="modal">
     <button class="modal-close" onclick="closeModal('payModal')">×</button>
     <div class="profile-header">
-      <div class="profile-avatar" style="background:linear-gradient(135deg,#00a884,#00c9a7);width:48px;height:48px;font-size:16px;border-radius:12px;margin:0 auto 10px;">بله</div>
-      <div class="profile-name" style="font-size:14px;color:var(--text-secondary)">پرداخت از طریق بله‌پی</div>
+      <div class="profile-avatar" style="background:linear-gradient(135deg,var(--primary),var(--primary-hover));width:48px;height:48px;font-size:16px;border-radius:12px;margin:0 auto 10px;">💳</div>
+      <div class="profile-name" style="font-size:14px;color:var(--text-secondary)">مشاهده شماره تماس</div>
       <div class="profile-name" style="font-size:24px;margin:5px 0">۲۰,۰۰۰ تومان</div>
-      <div class="profile-email">مشاهده شماره تماس آگهی‌دهنده</div>
     </div>
-    <div class="profile-ads">
-      <label style="display:flex;align-items:center;gap:10px;padding:12px;border:1.5px solid var(--primary);border-radius:11px;margin-bottom:7px;background:var(--primary-light);cursor:pointer">
-        <input type="radio" name="payMethod" checked>
-        <div><strong>کیف پول بله</strong><div style="font-size:11.5px;color:#666">پرداخت آنی</div></div>
-      </label>
-      <label style="display:flex;align-items:center;gap:10px;padding:12px;border:1.5px solid var(--border);border-radius:11px;margin-bottom:7px;cursor:pointer">
-        <input type="radio" name="payMethod">
-        <div><strong>کارت بانکی</strong><div style="font-size:11.5px;color:#666">کارت‌های عضو شتاب</div></div>
-      </label>
-      <button class="btn-pay" style="background:#00a884;margin-top:5px" onclick="confirmPayment()">پرداخت از طریق بله‌پی</button>
-      <div id="payStatus" style="display:none;margin-top:12px;"></div>
+    <div style="padding:0 4px;">
+      <div style="background:var(--primary-light);border:1.5px solid var(--primary);border-radius:11px;padding:14px;margin-bottom:12px;text-align:center;">
+        <div style="font-size:12px;color:#666;margin-bottom:6px;">شماره کارت</div>
+        <div style="font-size:17px;font-weight:700;letter-spacing:1px;font-family:monospace;direction:ltr;" id="cardNumberDisplay">6037 7016 1693 9556</div>
+        <div style="font-size:12px;color:#666;margin-top:4px;">عبدالباسط رحمت پور — بانک صادرات</div>
+      </div>
+      <div style="background:#f8f9fa;border-radius:11px;padding:14px;margin-bottom:12px;text-align:right;">
+        <div style="font-size:12.5px;font-weight:700;color:#333;margin-bottom:8px;">مرحله ۱: پرداخت کنید</div>
+        <div style="font-size:12px;color:#666;line-height:1.8;">
+          مبلغ <strong>۲۰,۰۰۰ تومان</strong> را به شماره کارت بالا واریز کنید.
+        </div>
+      </div>
+      <div style="background:#f8f9fa;border-radius:11px;padding:14px;margin-bottom:12px;text-align:right;">
+        <div style="font-size:12.5px;font-weight:700;color:#333;margin-bottom:8px;">مرحله ۲: رسید آپلود کنید</div>
+        <div style="font-size:12px;color:#666;margin-bottom:10px;">اسکرین‌شات رسید پرداخت را انتخاب کنید:</div>
+        <div id="receiptUploadArea" style="border:2px dashed var(--border);border-radius:11px;padding:20px;text-align:center;cursor:pointer;transition:all 0.2s;">
+          <div style="font-size:24px;margin-bottom:4px;">📷</div>
+          <div style="font-size:12px;color:#888;">کلیک کنید یا رسید را بکشید</div>
+          <input type="file" id="receiptFileInput" accept="image/*" style="display:none">
+        </div>
+        <div id="receiptPreview" style="display:none;margin-top:10px;">
+          <img id="receiptImg" style="width:100%;max-height:180px;object-fit:contain;border-radius:8px;border:1px solid var(--border);">
+          <div style="font-size:11px;color:var(--primary);margin-top:4px;">رسید انتخاب شد ✓</div>
+        </div>
+      </div>
+      <button class="btn-pay" id="submitReceiptBtn" style="margin-bottom:4px;" onclick="submitReceipt()" disabled>ارسال رسید و نمایش شماره</button>
+      <div id="payStatus" style="display:none;margin-top:8px;"></div>
     </div>
   </div>
 </div>
@@ -902,90 +917,89 @@ function openDetail(id) {
 }
 
 function openPayModal() {
+  selectedReceiptFile = null;
+  var preview = document.getElementById("receiptPreview");
+  var fileInput = document.getElementById("receiptFileInput");
+  var btn = document.getElementById("submitReceiptBtn");
+  var status = document.getElementById("payStatus");
+  if (preview) preview.style.display = "none";
+  if (fileInput) fileInput.value = "";
+  if (btn) { btn.disabled = true; btn.textContent = "ارسال رسید و نمایش شماره"; }
+  if (status) { status.style.display = "none"; status.innerHTML = ""; }
   document.getElementById("payModal").classList.add("active");
 }
 
 var BALE_BOT = "piran_63_bot";
 var PAY_AMOUNT = 20000;
-var payPollTimer = null;
+var selectedReceiptFile = null;
 
-function confirmPayment() {
-  if (!currentAdId) return;
-  var ad = ads.find(function(a) { return a.id === currentAdId; });
-  if (!ad) return;
+function initReceiptUpload() {
+  var area = document.getElementById("receiptUploadArea");
+  var fileInput = document.getElementById("receiptFileInput");
+  if (!area || !fileInput) return;
 
+  area.addEventListener("click", function() { fileInput.click(); });
+  area.addEventListener("dragover", function(e) { e.preventDefault(); area.style.borderColor = "var(--primary)"; area.style.background = "var(--primary-light)"; });
+  area.addEventListener("dragleave", function() { area.style.borderColor = ""; area.style.background = ""; });
+  area.addEventListener("drop", function(e) {
+    e.preventDefault();
+    area.style.borderColor = "";
+    area.style.background = "";
+    if (e.dataTransfer.files.length) handleReceiptFile(e.dataTransfer.files[0]);
+  });
+  fileInput.addEventListener("change", function() {
+    if (fileInput.files.length) handleReceiptFile(fileInput.files[0]);
+  });
+}
+
+function handleReceiptFile(file) {
+  if (!file.type.startsWith("image/")) { alert("فقط تصویر"); return; }
+  selectedReceiptFile = file;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    document.getElementById("receiptImg").src = e.target.result;
+    document.getElementById("receiptPreview").style.display = "block";
+    document.getElementById("submitReceiptBtn").disabled = false;
+  };
+  reader.readAsDataURL(file);
+}
+
+async function submitReceipt() {
+  if (!selectedReceiptFile || !currentAdId) return;
   if (!currentUser) {
     alert("لطفاً ابتدا وارد شوید");
     closeModal("payModal");
     openProfileModal();
     return;
   }
-
+  var btn = document.getElementById("submitReceiptBtn");
   var payStatus = document.getElementById("payStatus");
+  btn.disabled = true;
+  btn.textContent = "در حال آپلود...";
   payStatus.style.display = "block";
-  payStatus.innerHTML = '<div style="text-align:center;padding:20px;">' +
-    '<div style="font-size:24px;margin-bottom:10px;">⏳</div>' +
-    '<div style="font-size:13px;color:#666;">در حال انتقال به بله...</div>' +
-    '</div>';
+  payStatus.innerHTML = '<div style="text-align:center;padding:10px;"><div style="font-size:13px;color:#666;">⏳ در حال آپلود رسید...</div></div>';
 
-  var botUrl = "https://ble.ir/" + BALE_BOT + "?start=pay_" + currentAdId;
+  try {
+    var storageRef = storage.ref("receipts/" + currentAdId + "_" + Date.now());
+    var snapshot = await storageRef.put(selectedReceiptFile);
+    var downloadURL = await snapshot.ref.getDownloadURL();
 
-  setTimeout(function() {
-    window.open(botUrl, "_blank");
-  }, 500);
+    await db.collection("payments").doc(currentAdId).set({
+      paid: true,
+      userId: currentUser.uid,
+      userName: currentUser.email || "",
+      receiptUrl: downloadURL,
+      amount: PAY_AMOUNT,
+      paidAt: new Date().toISOString(),
+    });
 
-  payStatus.innerHTML = '<div style="text-align:center;padding:20px;">' +
-    '<div style="font-size:24px;margin-bottom:10px;">📲</div>' +
-    '<div style="font-size:13px;color:#333;margin-bottom:6px;">در بله پرداخت کنید</div>' +
-    '<div style="font-size:11.5px;color:#888;margin-bottom:12px;">فاکتور ۲۰,۰۰۰ تومانی برایتان ارسال شد</div>' +
-    '<button class="btn-pay" style="background:var(--primary);font-size:12px;padding:10px 20px;" onclick="checkPayment()">✓ پرداخت کردم</button>' +
-    '<div style="font-size:11px;color:#999;margin-top:8px;">پس از پرداخت، اینجا را کلیک کنید</div>' +
-    '</div>';
-
-  startPayPoll();
-}
-
-function startPayPoll() {
-  stopPayPoll();
-  payPollTimer = setInterval(function() {
-    if (!currentAdId) { stopPayPoll(); return; }
-    db.collection("payments").doc(currentAdId).get().then(function(doc) {
-      if (doc.exists && doc.data().paid === true) {
-        stopPayPoll();
-        revealPhone();
-      }
-    }).catch(function() {});
-  }, 5000);
-}
-
-function stopPayPoll() {
-  if (payPollTimer) { clearInterval(payPollTimer); payPollTimer = null; }
-}
-
-function checkPayment() {
-  if (!currentAdId) return;
-  var payStatus = document.getElementById("payStatus");
-  payStatus.innerHTML = '<div style="text-align:center;padding:20px;">' +
-    '<div style="font-size:24px;margin-bottom:10px;">⏳</div>' +
-    '<div style="font-size:13px;color:#666;">در حال بررسی پرداخت...</div>' +
-    '</div>';
-
-  db.collection("payments").doc(currentAdId).get().then(function(doc) {
-    if (doc.exists && doc.data().paid === true) {
-      revealPhone();
-    } else {
-      payStatus.innerHTML = '<div style="text-align:center;padding:20px;">' +
-        '<div style="font-size:24px;margin-bottom:10px;">❌</div>' +
-        '<div style="font-size:13px;color:#c0392b;margin-bottom:8px;">پرداخت هنوز ثبت نشده</div>' +
-        '<div style="font-size:11.5px;color:#888;margin-bottom:12px;">لطفاً پرداخت را انجام دهید و دوباره کلیک کنید</div>' +
-        '<button class="btn-pay" style="background:var(--primary);font-size:12px;padding:10px 20px;" onclick="checkPayment()">✓ پرداخت کردم</button>' +
-        '</div>';
-    }
-  }).catch(function(err) {
-    payStatus.innerHTML = '<div style="text-align:center;padding:20px;">' +
-      '<div style="font-size:13px;color:#c0392b;">خطا در بررسی: ' + err.message + '</div>' +
-      '</div>';
-  });
+    revealPhone();
+  } catch (err) {
+    console.error("Receipt upload error:", err);
+    payStatus.innerHTML = '<div style="text-align:center;padding:10px;"><div style="font-size:13px;color:#c0392b;">خطا در آپلود: ' + err.message + '</div></div>';
+    btn.disabled = false;
+    btn.textContent = "ارسال رسید و نمایش شماره";
+  }
 }
 
 function revealPhone() {
@@ -997,7 +1011,6 @@ function revealPhone() {
   document.getElementById("payBtn").textContent = "شماره تماس نمایش داده شد ✓";
   document.getElementById("payBtn").disabled = true;
   closeModal("payModal");
-  stopPayPoll();
 }
 
 function compressImage(file, maxWidth) {
@@ -1430,6 +1443,7 @@ function boot() {
     buildCategoryBar();
     updateProfileBtn();
     setupUploadArea();
+    initReceiptUpload();
     initGeolocation();
   } catch (err) {
     console.error("boot init error:", err);
